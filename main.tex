@@ -1,47 +1,68 @@
-\documentclass[a4j,12pt]{jreport}
-\title{ {\LaTeX} 動作確認テスト・サンプルファイル}
-\author{情報リテラシTA}
-\date{\today}
+\documentclass[11pt, a4paper]{jsreport}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{amsmath, amssymb}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{lscape}
+\usepackage{booktabs}
+\usepackage{ascmac}
+\usepackage{fancybox}
+\usepackage{amsthm}
+\usepackage{tikz}
+
+\graphicspath{{./TeX}} %ここは参照フォルダを毎回変更！
+
+\newcommand{\divergence}{\mathrm{div}\,} %ダイバージェンス
+\newcommand{\grad}{\mathrm{grad}\,} %グラディエント
+\newcommand{\rot}{\mathrm{rot}\,} %ローテーション
+
+\def\makecover{
+\begin{titlepage}
+	\begin{center}
+		{\large 令和3年度　　卒業論文}
+		
+		\vspace{60truemm}
+		
+		{\Huge 格子ボルツマン法を組み込んだ\\深層学習モデルによる日本近辺の風速予測}
+		
+		\vspace{30truemm}
+		
+		{\Large 指導教諭 澤田 秀之 教授}
+		
+		\vspace{30truemm}
+		
+		{\large 2021年2月5日提出}
+		
+		\vspace{10truemm}
+		
+		{\Large 早稲田大学　先進理工学部\\}
+		{\Large 応用物理学科\\}
+		{\Large 澤田秀之研究室 学部4年\\}
+		
+		\vspace{10truemm}
+		
+		{\Large 1Y18B099-2　　山倉　拓也}
+	\end{center}
+\end{titlepage}
+}
+
 \begin{document}
-\maketitle
 
-\chapter{\LaTeX の世界にようこそ！}
+\makecover
 
-\section{インストール成功！}
-\LaTeX の世界にようこそ！この文章が「dviout」というソフトで閲覧できていれば、
-インストールに成功しています。
 
-\LaTeX（ラテフ）もしくは\TeX（テフ）は、
-組版処理を行うソフトウェアです。
-数学者・コンピュータ科学者のドナルド・クヌース氏によって作られました。
+\include{introduction}
 
-このソフトを使うと、きれいな文章の作成ができます。実際に出版の現場でも使われているそうです。
-数学者が作ったということもあって、特に数式の出力がきれいにできるのが特徴です。
-\begin{eqnarray}
-& \displaystyle \lim _{x \rightarrow 1} \left( \frac{2}{x-1} - \frac{x+5}{x^3 -1} \right)\; ,\; 
-& \displaystyle \int ^\pi _0 \cos ^2 (x)dx \nonumber
-\end{eqnarray}
-2つの数式が、きちんと表示されていますか？
-複雑な数式が入った文章も、きれいに出力することができます。
+\include{principles}
 
-\section{基本手順}
+\include{how_to_assemble}
 
-では、\LaTeX で文章を作る際の、基本的な手順をここに示します。
+\include{experiments}
 
-\begin{enumerate}
- \item ソースファイルをTeraPadなどのエディタで作成する。
- 
- ソース（素）となるファイルを作成します。これにはエディタと呼ばれるソフトを使います。
- この地点では文章の形にはなっていません。
- 
- \item ソースファイルをコンパイルして、dviファイルを作成する。
- 
- パソコンに変換を命令して、先ほどつくったソースファイル
- をdviファイルに変換、文章の形にして確認します。
- 
- \item dviファイルができたことを確認したら、PDFに変換する。
- 
- dvi形式は、あまり一般的ではありません。
- そこで、Adobe Readerなどで閲覧ができるPDF形式に変換します。
-\end{enumerate}
+\bibliography{refs}
+\bibliographystyle{junsrt}
 \end{document}
