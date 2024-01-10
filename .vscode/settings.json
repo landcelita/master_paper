@@ -85,4 +85,5 @@
     ],
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.view.pdf.invert": 1,
+    "latex-workshop.latex.autoBuild.interval": 30000,
 }
