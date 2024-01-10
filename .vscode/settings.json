@@ -62,7 +62,7 @@
         {
             "name": "latexmk",
             "tools": [
-                "latexmk"
+                "svgtoeps", "latexmk"
             ]
         },
     ],
@@ -77,6 +77,10 @@
                 "-outdir=%OUTDIR%",
                 "%DOC%"
             ],
+        },
+        {
+            "name": "svgtoeps",
+            "command": "svgtoeps.bat",
         },
     ],
     "latex-workshop.view.pdf.viewer": "tab",
