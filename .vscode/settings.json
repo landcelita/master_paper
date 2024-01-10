@@ -60,7 +60,7 @@
     // ビルドのレシピ
     "latex-workshop.latex.recipes": [
         {
-            "name": "latexmk",
+            "name": "make",
             "tools": [
                 "svgtoeps", "latexmk"
             ]

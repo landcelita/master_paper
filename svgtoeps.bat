@@ -1,9 +1,6 @@
 @echo off
-dir *.svg /b /s > filelist.txt
-for /f %%a in ( filelist.txt ) do (
-    if exist "%%a.eps" (
-        continue
+for /f "usebackq delims=" %%a in ( `dir *.svg /b /s` ) do (
+    if not exist %%a.eps (
+        inkscape -p %%a -o %%a.eps
     )
-    inkscape -p %%a -o %%a.eps
 )
-del filelist.txt
