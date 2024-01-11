@@ -1,6 +1,229 @@
-<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="121px" height="151px" viewBox="-0.5 -0.5 121 151" content="&lt;mxfile&gt;&lt;diagram id=&quot;dAaart972M5OL8I0-ULT&quot; name=&quot;ページ1&quot;&gt;jZLJbsMgEEC/hruBpnWuSdP2UqmSDz0je2KQwCBCartfX1wGL40i9YJm3izMRvjRDK9eOPluG9CEFc1A+DNh7GFfxncCYwK7kibQetUktAKV+gaEBdKrauCycQzW6qDcFta266AOGya8t/3W7Wz19lcnWrgBVS30Lf1UTZCJluxp4W+gWpl/po/7ZDEiO2MnFyka268QPxF+9NaGJJnhCHqaXZ5Linu5Y50L89CF/wSwFPAl9BV7w7rCmJuNJbpJjEmF1qBt64Uh/ODAKwMB/F/bx2I49FIFqJyopwx9PIbIZDA6ajSKZzVA3u+kYzXgAwx3O6LznOJ9gY1f+TG6YAArcLR4W7REvV82RfP45XpLO4QCr6Odcy8DjALOMKvLrn5tq4Pnpx8=&lt;/diagram&gt;&lt;/mxfile&gt;">
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800px" height="287px" viewBox="-0.5 -0.5 800 287" content="&lt;mxfile&gt;&lt;diagram id=&quot;dAaart972M5OL8I0-ULT&quot; name=&quot;ページ1&quot;&gt;7ZpJk9soFIB/Dcd2CSFk6Sh5SQ6ZqlT1Yc60jW1VsFEk3HbPrx+QQCte4mWc9sSHbnigB2/he6JsgEbr/ZeMpKu/+Jwy4DrzPUBj4Lp+COVfJfgoBRAPnVKyzJK5ltWC1+QfqoVm2jaZ07w1UXDORJK2hTO+2dCZaMlIlvFde9qCs/aqKVnSnuB1Rlhf+ncyF6tSGrjDWv6VJsuVWRn6YTmyJmayVpGvyJzvSlFhHJoANMo4F2VrvR9Rppxn/FJ6YHpgtNpYRjfinAfc8oF3wrbaNr0v8WGMlVtMVVMqJYxRxpcZWQMUpzRL1lTQrDv2vR6Id6tE0NeUzJSGncwGKVuJNZM9KJuLZE9NfFU/L5vIke2MCyISvpH9UPUXLEm/6nl9M7Xl7zQTdN8QabO/UC63lH3IKWbU0clkkjDQ/V0dUYi1bNWIpqdlRCfRslJd+1k2tKvtbvdPu51u5pFKVdmbMZLnyaztuvIBOu9lascnfQc0DLTZZ2QZZdL/7231NqP1Ct95Iheu/Os6uOVf1+n4LefbbEb1U80U7SryTygSJFtS0VNUxKAy+6ywhJaw+Eyo5OPFlur4+D+33Ay8lGkbyQkQp/siOGZctpbF/4kH4gBEPpiEQKZaXKmWmyq164m9RJAh/kbeJEJb8ScsWaqzMZPhLo6aSv1EMirSA+tkPlc64ozK/ZG3Qp86SKnyVOE7HAM8rtbsnZ0KoPrhiiatLPOPHjNn4ELjVx3AF3iTBHsJrFqNAr5Y5PTahIC2jPg0fLQE9Aw8mGPnPpCPFc6fGJDIvREgUfCfAdL6vlBiLE/J5kpCSjxCEI7BZAiiCASwQchS+ycl5ImT9rkR6aL/LSKR90hEes+PSA87A6fxgW13h+HA9y9jJg7bobsnM/E9mdl7q5xMQTwCwciCUzM0GAyeBq3eo9AKsVXtbdl6xj3xSdmK8QPZipzr2aqOsHEd/gSshd33/SvoCrvBs+i6HWCR5bIw8UEoiSgbGAQBiKX7HeA7ao/AVR0ke53L/aI8BjVl5TayZUIs2MXxSsHr0A3eAROkgBtNzJS3rIXsSG1K7lGxe1RsdgxiWCAbg3iqaB65IAo01sPpeXqkrWMQDovGqGhcpkc2HK0nHIFo2Et+ea7F/SoC2QqeN6gjMv6DjjjjimUbvqEFmhjriqwn7ioK+bhdPCDGfQp5lkMZ3oJCtsvWk1PIt5EDh/VneBmR/ODkm+SRVW7IKstt6RirHgapy5B0GYD+4OYYXtx74cVygfydy+afjPwNCuALtLyG360A2m7OB64/C0b3uhLG1qKYS4iLk7VyStYJU7aaJO571ViO3IEH0TBE0EGeF7iBWURPxoPAHeLAdx0/CH2M3V8ov9LEorC1X3DLMtQ8vUfLdPUNZzMulfDaQo0O3M9+tTIPO4q6eg7UXhlJ8tGYpg/Rwf12lzFYrVOx1HhmYZfd+kv6cnr9Uwc0+Rc=&lt;/diagram&gt;&lt;/mxfile&gt;">
     <defs/>
     <g>
-        <path d="M 0 150 L 20 0 L 120 0 L 100 150 Z" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 100 230 L 130 190 L 250 190 L 220 230 Z" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" transform="translate(175,0)scale(-1,1)translate(-175,0)rotate(-90,175,210)" pointer-events="all"/>
+        <path d="M 205 210 L 258.63 210" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 263.88 210 L 256.88 213.5 L 258.63 210 L 256.88 206.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 210px; margin-left: 234px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                <font style="font-size: 15px;">
+                                    並進
+                                </font>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="234" y="214" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    並進
+                </text>
+            </switch>
+        </g>
+        <path d="M 220 230 L 250 190 L 370 190 L 340 230 Z" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" transform="translate(295,0)scale(-1,1)translate(-295,0)rotate(-90,295,210)" pointer-events="all"/>
+        <path d="M 325 210 L 378.63 210" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 383.88 210 L 376.88 213.5 L 378.63 210 L 376.88 206.5 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 210px; margin-left: 354px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                <span style="font-size: 15px;">
+                                    衝突
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="354" y="214" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    衝突
+                </text>
+            </switch>
+        </g>
+        <path d="M 340 230 L 370 190 L 490 190 L 460 230 Z" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" transform="translate(415,0)scale(-1,1)translate(-415,0)rotate(-90,415,210)" pointer-events="all"/>
+        <path d="M 450 209.66 L 583.63 209.98" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 588.88 210 L 581.87 213.48 L 583.63 209.98 L 581.89 206.48 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 210px; margin-left: 520px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 11px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; background-color: rgb(255, 255, 255); white-space: nowrap;">
+                                <span style="font-size: 15px;">
+                                    並進，衝突，...
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="520" y="214" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="11px" text-anchor="middle">
+                    並進，衝突，...
+                </text>
+            </switch>
+        </g>
+        <path d="M 550 230 L 580 190 L 700 190 L 670 230 Z" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" transform="translate(625,0)scale(-1,1)translate(-625,0)rotate(-90,625,210)" pointer-events="all"/>
+        <path d="M 120 209.66 L 143.63 209.66" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 148.88 209.66 L 141.88 213.16 L 143.63 209.66 L 141.88 206.16 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="659" y="165" width="140" height="90" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 210px; margin-left: 729px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 15px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: nowrap;">
+                                時刻
+                                <mjx-container class="MathJax" jax="SVG">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="4.714ex" height="1.69ex" role="img" focusable="false" viewBox="0 -665 2083.4 747" xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.186ex;">
+                                        <defs>
+                                            <path id="MJX-332-TEX-I-1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"/>
+                                            <path id="MJX-332-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"/>
+                                            <path id="MJX-332-TEX-N-33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"/>
+                                        </defs>
+                                        <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)">
+                                            <g data-mml-node="math">
+                                                <g data-mml-node="mstyle">
+                                                    <g data-mml-node="mi">
+                                                        <use data-c="1D461" xlink:href="#MJX-332-TEX-I-1D461"/>
+                                                    </g>
+                                                    <g data-mml-node="mo" transform="translate(583.2,0)">
+                                                        <use data-c="2B" xlink:href="#MJX-332-TEX-N-2B"/>
+                                                    </g>
+                                                    <g data-mml-node="mn" transform="translate(1583.4,0)">
+                                                        <use data-c="33" xlink:href="#MJX-332-TEX-N-33"/>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </mjx-container>
+                                <font face="Georgia">
+                                    [h]
+                                </font>
+                                の
+                                <br/>
+                                予測東西風速
+                                <br/>
+                                予測南北風速
+                                <br/>
+                                予測気圧
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="729" y="215" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="15px" text-anchor="middle">
+                    時刻 `t + 3`[h] の...
+                </text>
+            </switch>
+        </g>
+        <path d="M 650 209.66 L 673.63 209.66" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 678.88 209.66 L 671.88 213.16 L 673.63 209.66 L 671.88 206.16 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <rect x="0" y="165" width="120" height="90" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 210px; margin-left: 60px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 15px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: nowrap;">
+                                時刻
+                                <mjx-container class="MathJax" jax="SVG">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="0.817ex" height="1.441ex" role="img" focusable="false" viewBox="0 -626 361 637" xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.025ex;">
+                                        <defs>
+                                            <path id="MJX-333-TEX-I-1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"/>
+                                        </defs>
+                                        <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)">
+                                            <g data-mml-node="math">
+                                                <g data-mml-node="mstyle">
+                                                    <g data-mml-node="mi">
+                                                        <use data-c="1D461" xlink:href="#MJX-333-TEX-I-1D461"/>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </mjx-container>
+                                <font face="Georgia">
+                                    [h]
+                                </font>
+                                の
+                                <br/>
+                                東西風速
+                                <br/>
+                                南北風速
+                                <br/>
+                                気圧
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="60" y="215" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="15px" text-anchor="middle">
+                    時刻 `t `[h] の...
+                </text>
+            </switch>
+        </g>
+        <rect x="659" y="0" width="140" height="90" fill="none" stroke="none" pointer-events="all"/>
+        <g transform="translate(-0.5 -0.5)">
+            <switch>
+                <foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 1px; height: 1px; padding-top: 45px; margin-left: 729px;">
+                        <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                            <div style="display: inline-block; font-size: 15px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: nowrap;">
+                                時刻
+                                <mjx-container class="MathJax" jax="SVG">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="4.714ex" height="1.69ex" role="img" focusable="false" viewBox="0 -665 2083.4 747" xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.186ex;">
+                                        <defs>
+                                            <path id="MJX-334-TEX-I-1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"/>
+                                            <path id="MJX-334-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"/>
+                                            <path id="MJX-334-TEX-N-33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"/>
+                                        </defs>
+                                        <g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)">
+                                            <g data-mml-node="math">
+                                                <g data-mml-node="mstyle">
+                                                    <g data-mml-node="mi">
+                                                        <use data-c="1D461" xlink:href="#MJX-334-TEX-I-1D461"/>
+                                                    </g>
+                                                    <g data-mml-node="mo" transform="translate(583.2,0)">
+                                                        <use data-c="2B" xlink:href="#MJX-334-TEX-N-2B"/>
+                                                    </g>
+                                                    <g data-mml-node="mn" transform="translate(1583.4,0)">
+                                                        <use data-c="33" xlink:href="#MJX-334-TEX-N-33"/>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </mjx-container>
+                                <font face="Georgia">
+                                    [h]
+                                </font>
+                                の
+                                <br/>
+                                東西風速
+                                <br/>
+                                南北風速
+                                <br/>
+                                気圧
+                            </div>
+                        </div>
+                    </div>
+                </foreignObject>
+                <text x="729" y="50" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="15px" text-anchor="middle">
+                    時刻 `t + 3`[h] の...
+                </text>
+            </switch>
+        </g>
+        <path d="M 746.01 146.22 L 756.5 146.35 L 729.57 164.5 L 703.09 145.68 L 713.59 145.82 L 713.79 129.99 L 713.55 109.69 L 703.05 109.81 L 729.54 90.5 L 756.46 109.18 L 745.96 109.31 L 746.2 129.61 Q 746.21 130.01 746.2 130.4 Z" fill="none" stroke="rgb(0, 0, 0)" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 746.01 146.22 L 756.5 146.35 L 729.57 164.5 L 703.09 145.68 L 713.59 145.82" fill="none" stroke="rgb(0, 0, 0)" stroke-linejoin="flat" stroke-miterlimit="4" pointer-events="all"/>
+        <path d="M 713.55 109.69 L 703.05 109.81 L 729.54 90.5 L 756.46 109.18 L 745.96 109.31" fill="none" stroke="rgb(0, 0, 0)" stroke-linejoin="flat" stroke-miterlimit="4" pointer-events="all"/>
     </g>
+    <switch>
+        <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/>
+        <a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank">
+            <text text-anchor="middle" font-size="10px" x="50%" y="100%">
+                Text is not SVG - cannot display
+            </text>
+        </a>
+    </switch>
 </svg>

@@ -1,6 +1,6 @@
 \chapter{原理 \label{chap:principles}}
 \section{深層学習 \label{section:deep-learning}}
-深層学習は機械学習の一分野であり，複数の隠れ層から成るニューラルネットワークを使用して高度なパターン認識や特徴抽出を行う手法である．この章では最も単純で典型的な深層学習のアーキテクチャを説明する．aaa
+深層学習は機械学習の一分野であり，複数の隠れ層から成るニューラルネットワークを使用して高度なパターン認識や特徴抽出を行う手法である．この章では最も単純で典型的な深層学習のアーキテクチャを説明する．
 \if0
 どのくらい書くべきか？どう書くべきか？
 この原理の章はそもそも自分のモデルを説明するときに使うものであって，先に自分のモデルについて書いたほうがやりやすいかもしれん．
@@ -12,3 +12,32 @@
 深層学習はその柔軟性と高い表現力により，現代の多くの応用分野で革新的な成果をもたらしており，これからもその進化と応用範囲の拡大が期待されています．
 
 \section{格子ボルツマン法 \label{section:lbm}}
+
+（並進の式）
+\begin{equation}
+  f'(\bm{x}+\bm{v}, \bm{v}, t)
+  = f(\bm{x}, \bm{v}, t)
+  \label{eq:principles-streaming}
+\end{equation}
+
+（衝突の式）
+\begin{equation}
+  f(\bm{x}, \bm{v}, t+1) = 
+  f'(\bm{x}, \bm{v}, t) - 
+  \frac{1}{\tau} \left[ 
+    f'(\bm{x}, \bm{v}, t) - f^{eq}(\bm{x}, \bm{v}, t) 
+  \right]
+  \label{eq:principles-collision}
+\end{equation}
+
+(局所平衡分布関数の式)
+\begin{equation}
+  f^{eq}(\bm{x}, \bm{v}, t) = 
+  c_i(\bm{v}) \rho(\bm{x}, t) \left[ 
+    1 
+    + 3\bm{v} \cdot \bm{u}(\bm{x}, t) 
+    + \frac{9}{2}(\bm{v} \cdot \bm{u}(\bm{x}, t))^2 
+    - \frac{3}{2}\bm{u}(\bm{x}, t)^2 
+  \right]
+  \label{eq:principles-equilibrium}
+\end{equation}
