@@ -7,9 +7,93 @@
 - 読者にどの程度の前提知識を求めるべきか．
 \fi
 
-深層学習の特徴は，大規模で非線形な問題に適用できることや，画像認識，音声認識，自然言語処理などの様々な領域で驚異的な性能を示すことです．また，GPUなどの高性能な計算リソースが利用可能になったことで，大規模なニューラルネットワークのトレーニングが実用的になりました．
+図\ref{todo}に示す通り，深層学習は入力層，隠れ層，出力層から成るニューラルネットワークで表される．入力層は入力データを受け取り，隠れ層は入力層から出力を受け取り，出力層は隠れ層の出力を受け取る．隠れ層は複数存在し，それぞれの隠れ層は前の隠れ層の出力を受け取る．ここで，各層は複数のニューロンからなり，各ニューロンは入力された実数値に活性化関数を適用した値を出力する．その入力値は，前の層のニューロンの出力に重みをかけたものの和にバイアスを加えた値である．十分な隠れ層を持ち，重みが適切に調節されたニューラルネットワークは任意の関数を近似することができることが知られている\cite{todo}．
 
-深層学習はその柔軟性と高い表現力により，現代の多くの応用分野で革新的な成果をもたらしており，これからもその進化と応用範囲の拡大が期待されています．
+\subsection{ニューロンの計算原理 \label{subsection:neuron-principles}}
+より詳しく原理を説明する．合計で$m$層になるニューラルネットワークを考える．まず，入力層のニューロンの数を$n^{(1)}$とし，第$j$ ($1 \leq j \leq n^{(1)}$)ニューロンへの入力を$y_j^{(1)} \in \mathbb{R}$，ニューロンからの出力を$z_j^{(1)} \in \mathbb{R}$とする．$y_j^{(1)}$は入力データの第$j$成分を意味する．また，$z_j^{(1)}$は$y_j^{(1)}$に活性化関数$f^{(1)}: \mathbb{R} \rightarrow \mathbb{R}$を適用した値である．つまり，
+\begin{equation}
+  z_j^{(1)} = f^{(1)}(y_j^{(1)})
+  \label{eq:deep-learning-input-layer}
+\end{equation}
+である．
+次に，中間層または出力層である第$k$ $(2 \leq k \leq m)$層のニューロンの数を$n^{(k)}$とし，第$j$ $(1 \leq j \leq n^{(k)})$ニューロンへの入力を$y_j^{(k)} \in \mathbb{R}$，ニューロンからの出力を$z_j^{(k)} \in \mathbb{R}$とすると，これらは以下のように表される．
+\begin{equation}
+  y_j^{(k)} = \sum_{i=0}^{n^{(k-1)}} w_{ij}^{(k)} z_i^{(k-1)}
+  \label{eq:deep-learning-neuron-input}
+\end{equation}
+\begin{equation}
+  z_j^{(k)} = f^{(k)}(y_j^{(k)})
+  \label{eq:deep-learning-neuron-output}
+\end{equation}
+ここで，$w_{ij}^{(k)} \in \mathbb{R}$は第$k-1$層の第$i$ニューロンから第$k$層の第$j$ニューロンへの重み，$f^{(k)}: \mathbb{R} \rightarrow \mathbb{R}$は活性化関数である．ただし，$f^{(m)}$は恒等関数とする．活性化関数は通常非線形関数であり，シグモイド関数やReLU関数などが用いられる．またここでは$z_0^{(k-1)} = 1$とすることで，バイアス$w_{0j}^{(k)}$を導入する．
+
+以上から，ニューラルネットワークに$y_1^{(1)}, \dots, y_{n^{(1)}}^{(1)}$を入力すると式(\ref{eq:deep-learning-input-layer}), (\ref{eq:deep-learning-neuron-input}), (\ref{eq:deep-learning-neuron-output})
+によって順次計算が行われ，$z_1^{(m)}, \dots, z_{n^{(m)}}^{(m)}$が出力されることがわかる．続いて，これをどのように目的の出力に近づけるかを考える．
+
+目的の出力を$\hat{z}_0^{(m)}, \dots, \hat{z}_{n^{(m)}}^{(m)}$とする．このとき，出力層のニューロンの出力と目的の出力の誤差を表す二乗損失関数は次のように表される（これは単に損失とも呼ばれる）．
+\begin{equation}
+  E = \frac{1}{2} \sum_{j=1}^{n^{(m)}} \left( z_j^{(m)} - \hat{z}_j^{(m)} \right)^2
+  \label{eq:deep-learning-loss}
+\end{equation}
+
+これを最小化するように各層の重みを調節することで，ニューラルネットワークは目的の出力に近づく．ここでは最も単純な勾配降下法を用いる．まず，隠れ層及び出力層に接続する重み$w_{ij}^{(k)}$ $(2 \leq k \leq m)$の誤差$E$に対する勾配は$\partial E / \partial w_{ij}^{(k)}$で表され，これにより重みを次のように更新すると誤差が減少することが分かる．
+\begin{equation}
+  w_{ij}^{(k)} \leftarrow w_{ij}^{(k)} - \eta \frac{\partial E}{\partial w_{ij}^{(k)}}
+  \label{eq:deep-learning-gradient-descent}
+\end{equation}
+ここで，$\eta$は学習率と呼ばれる$0$以上の実数である．以下では$\partial E / \partial w_{ij}^{(k)}$を求めることを考える．そのために準備としてひとつ記号を定義する．$\delta_j^{(k)}$を第$k$層の第$j$ニューロンの誤差といい，以下で定義する．
+\begin{equation}
+  \delta_j^{(k)} = \frac{\partial E}{\partial u_j^{(k)}}
+  \label{eq:deep-learning-delta}
+\end{equation}
+これを用いて$\partial E / \partial w_{ij}^{(k)}$を表し，最後に誤差を求める．
+
+$2 \leq k \leq m$とする．式(\ref{eq:deep-learning-neuron-output}), (\ref{eq:deep-learning-delta})より，$\partial E / \partial w_{ij}^{(k)}$は次のように表される．
+\begin{equation}
+  \frac{\partial E}{\partial w_{ij}^{(k)}} =
+  \frac{\partial E}{\partial u_j^{(k)}} \frac{\partial u_j^{(k)}} {\partial w_{ij}^{(k)}} =
+  \delta_j^{(k)} \frac{\partial u_j^{(k)}} {\partial w_{ij}^{(k)}}
+  \label{eq:deep-learning-middle-layer}
+\end{equation}
+そして，式(\ref{eq:deep-learning-neuron-input})より，$\partial u_j^{(k)} / \partial w_{ij}^{(k)}$は次のように表される．
+\begin{equation}
+  \frac{\partial u_j^{(k)}} {\partial w_{ij}^{(k)}} =
+  \frac{ \partial \left( \sum_{i=0}^{n^{(k-1)}} w_{ij}^{(k)} z_i^{(k-1)} \right)} {\partial w_{ij}^{(k)}} =
+  z_i^{(k-1)}
+  \label{eq:deep-learning-middle-layer-2}
+\end{equation}
+したがって，式(\ref{eq:deep-learning-middle-layer}), (\ref{eq:deep-learning-middle-layer-2})より，
+\begin{equation}
+  \frac{\partial E}{\partial w_{ij}^{(k)}} =
+  \delta_j^{(k)} z_i^{(k-1)}
+  \label{eq:deep-learning-middle-layer-3}
+\end{equation}
+となる．
+
+最後に誤差を求める．まず，出力層の誤差$\delta_j^{(m)}$は式(\ref{eq:deep-learning-delta}), (\ref{eq:deep-learning-loss})より次のように表される．
+\begin{equation}
+  \delta_j^{(m)} = \frac{\partial E}{\partial u_j^{(m)}} =
+  \frac{\partial E}{\partial z_j^{(m)}} =
+  \frac{\partial \left( \frac{1}{2} \sum_{j=1}^{n^{(m)}} \left( z_j^{(m)} - \hat{z}_j^{(m)} \right)^2 \right)} {\partial z_j^{(m)}} =
+  z_j^{(m)} - \hat{z}_j^{(m)}
+  \label{eq:deep-learning-output-error}
+\end{equation}
+続いて，$2 \leq k \leq m-1$に対して，第$k$層の誤差$\delta_j^{(k)}$は次のように表される．
+\begin{equation}
+  \begin{split}
+  \delta_j^{(k)} &= \frac{\partial E}{\partial u_j^{(k)}} =
+  \sum_{i=1}^{n^{(k+1)}} \frac{\partial E}{\partial u_i^{(k+1)}} \frac{\partial u_i^{(k+1)}} {\partial u_j^{(k)}} \\ &=
+  \sum_{i=1}^{n^{(k+1)}} \delta_i^{(k+1)} \frac{\partial u_i^{(k+1)}} {\partial z_j^{(k)}} \frac{\partial z_j^{(k)}} {\partial u_j^{(k)}} \\ &=
+  \sum_{i=1}^{n^{(k+1)}} \delta_i^{(k+1)} w_{ji}^{(k+1)} f^{(k)\prime}(y_j^{(k)})
+  \end{split}
+  \label{eq:deep-learning-middle-error}
+\end{equation}
+
+以上より，式(\ref{eq:deep-learning-output-error}), (\ref{eq:deep-learning-middle-error})を用いて$\delta_j^{(k)}$を順次計算し，さらに式(\ref{eq:deep-learning-middle-layer-3})を用いて$\partial E / \partial w_{ij}^{(k)}$を順次計算することで，式(\ref{eq:deep-learning-gradient-descent})によって重みを更新することができる．
+
+\subsection{自動微分 \label{subsection:automatic-differentiation}}
+\ref{subsection:neuron-principles}節では，ニューラルネットワークの重みを更新するために，誤差を逐次的に求めていく必要があることを述べた．しかし，ニューラルネットワークのモデルが複雑化するに従って，この数式を手作業で計算することは困難になってくる．そこで，自動微分と呼ばれる手法を用いる．
+一般的にコンピュータ上で表される関数は，基本的には四則演算や三角関数，指数関数などの初等関数の合成で表される．自動微分では，このような基本的な関数の微分をあらかじめ定義しておき，合成関数の微分を関数の微分の積で表すことで計算する．PyTorchやTensorFlowなどの深層学習フレームワークでは，この自動微分が実装されているため，複雑なモデルでも容易に実装することができる．
 
 \section{格子ボルツマン法 \label{section:lbm}}
 
@@ -41,3 +125,6 @@
   \right]
   \label{eq:principles-equilibrium}
 \end{equation}
+
+% Todo: 流速の式を書く
+
