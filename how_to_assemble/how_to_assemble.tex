@@ -11,7 +11,7 @@
 \end{figure}
 
 \section{提案モデルの原理}
-この節では，具体的にどのようにLBMに重みを導入し学習を行うか，その原理について説明する．まずは図\ref{fig:model}(a)で表されるように，ある一時刻のデータのみが入力されたときにその$\Delta T$後の流速のみを予想する時系列性のないモデルを説明する．その後，図\ref{fig:model}(b)で表されるように$\Delta T$おきの時系列データが入力されたとき，それぞれの時刻に対して$\Delta T$後の時系列データを予測するモデルを説明する．
+この節では，具体的にどのようにLBMに重みを導入し学習を行うか，その原理について説明する．まずは図\ref{fig:model-todo}(a)で表されるように，ある一時刻のデータのみが入力されたときにその$\Delta T$後の流速のみを予想する時系列性のないモデルを説明する．その後，図\ref{fig:model-todo}(b)で表されるように$\Delta T$おきの時系列データが入力されたとき，それぞれの時刻に対して$\Delta T$後の時系列データを予測するモデルを説明する．
 
 \subsection{時系列性のないモデル\label{subsection:time-series-less-model}}
 時系列性のないモデルでは，ある無次元時刻$t_0$での流速$\hat{\bm{u}}(\bm{x}, t_0)$と圧力$\hat{\rho}(\bm{x}, t_0)$のデータが入力されたときに時刻$t_1 = t_0 + \Delta T$での流速$\hat{\bm{u}}(\bm{x}, t_1)$と圧力$\hat{\rho}(\bm{x}, t_1)$を予測する．まずLBMの並進と衝突の式にどのように重みを導入するかを説明する．
@@ -20,8 +20,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
 \begin{equation}
   f'(\bm{x}+\bm{v}, \bm{v}, t)
   = f(\bm{x}, \bm{v}, t)
-  \tag{\ref{eq:principles-streaming}}
-  % todo: あとで第二章の式と整合性が取れているか最終チェックする
+  \tag{\ref{eq:lbm-streaming}}
 \end{equation}
 
 この式に重み$w'_{\rm{const}}(\bm{x}, \bm{v}, t)$, $w'_{\rm{fprev}}(\bm{x}, \bm{v}, t)$を導入する．重みを導入することで，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を並進させる際に，仮想粒子の流入や流出を表現することができる．重みを導入した並進の式は以下のように表される．
@@ -39,8 +38,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
   \frac{1}{\tau} \left[ 
     f'(\bm{x}, \bm{v}, t) - f^{eq}(\bm{x}, \bm{v}, t) 
   \right]
-  \tag{\ref{eq:principles-collision}}
-  % todo: あとで第二章の式と整合性が取れているか最終チェックする
+  \tag{\ref{eq:lbm-collision}}
 \end{equation}
 
 \begin{equation}
@@ -51,8 +49,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
     + \frac{9}{2}(\bm{v} \cdot \bm{u}'(\bm{x}, t))^2 
     - \frac{3}{2}\bm{u}'(\bm{x}, t)^2 
   \right]
-  \tag{\ref{eq:principles-equilibrium}}
-  % todo: あとで第二章の式と整合性が取れているか最終チェックする
+  \tag{\ref{eq:lbm-eq}}
 \end{equation}
 
 これらの式にも重み$w_{\rm{fprev}}(\bm{x}, \bm{v}, t)$, $w_{\rm{vu}}(\bm{x}, \bm{v}, t)$, $w_{\rm{vxu}}(\bm{x}, \bm{v}, t)$, $w_{\rm{vu2}}(\bm{x}, \bm{v}, t)$, $w_{\rm{u2}}(\bm{x}, \bm{v}, t)$を導入する．重みを導入した衝突の式はそれぞれ以下のように表される．
@@ -80,7 +77,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
   \bm{u} \times \bm{v} = u_1 v_2 - u_2 v_1
   \label{eq:cross-product}
 \end{equation}
-と定義される演算子である．ここで，式(\ref{eq:principles-equilibrium})と比べて式(\ref{eq:weighted-equilibrium})には新たに$w_{\rm{vxu}}(\bm{x}, \bm{v}, t)\bm{v} \times \bm{u}(\bm{x}, t)$という項が導入されている．これは，座標$\bm{x}$における流体の回転を表現するためである．
+と定義される演算子である．ここで，式(\ref{eq:lbm-eq})と比べて式(\ref{eq:weighted-equilibrium})には新たに$w_{\rm{vxu}}(\bm{x}, \bm{v}, t)\bm{v} \times \bm{u}(\bm{x}, t)$という項が導入されている．これは，座標$\bm{x}$における流体の回転を表現するためである．
 
 次に，どのように流速と圧力のデータを入力層へと入力するか，出力層から流速と圧力のデータを取得して損失を計算するか説明する．与えられた時刻$t_0$での流速と圧力のデータだけでは仮想粒子の分布状態$f(\bm{x}, \bm{v}, t_0)$を計算することはできないが，ここでは局所平衡分布関数に重みを導入した式(\ref{eq:weighted-equilibrium})を用いて次式のように入力層の分布状態を推定した．
 \begin{equation}
@@ -96,7 +93,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
   \end{split}
   \label{eq:input-layer}
 \end{equation}
-また，出力層では単純に仮想粒子の分布$f(\bm{x}, \bm{v}, t_1)$から式(\ref{todo})を用いて流速$\bm{u}(\bm{x}, t_1)$と圧力$\rho(\bm{x}, t_1)$を算出した．これらと実測流速$\hat{\bm{u}}(\bm{x}, t_1)$と圧力$\hat{\rho}(\bm{x}, t_1)$から求められる二乗損失は，式(\ref{todo})から次のように表される．
+また，出力層では単純に仮想粒子の分布$f(\bm{x}, \bm{v}, t_1)$から式(\ref{eq:lbm-macro-velocity}), (\ref{eq:lbm-macro-density})を用いて流速$\bm{u}(\bm{x}, t_1)$と圧力$\rho(\bm{x}, t_1)$を算出した．これらと実測流速$\hat{\bm{u}}(\bm{x}, t_1)$と圧力$\hat{\rho}(\bm{x}, t_1)$から求められる二乗損失は，式(\ref{eq:deep-learning-loss})から次のように表される．ただし，ここでは係数を1とした．
 \begin{equation}
   E = \sum_{\bm{x}} 
   \left\| \bm{u}(\bm{x}, t_1) - \hat{\bm{u}}(\bm{x}, t_1) \right\|^2 +
@@ -119,14 +116,14 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
   \right.
 \end{equation}
 
-この初期値から学習を進めることで重みを更新していく．例として，中間層の重み$w'_{\rm{fprev}}(\bm{x}, \bm{v}, t)$の更新式を示す．最も単純な勾配降下法では，式(\ref{todo}), (\ref{eq:weighted-streaming})より以下のように表される．
+この初期値から学習を進めることで重みを更新していく．例として，中間層の重み$w'_{\rm{fprev}}(\bm{x}, \bm{v}, t)$の更新式を示す．最も単純な勾配降下法では，式(\ref{eq:deep-learning-gradient-descent}), (\ref{eq:deep-learning-middle-layer-3}), (\ref{eq:weighted-streaming}), (\ref{eq:error-function})より以下のように表される．
 \begin{equation}
   w'_{\rm{fprev}}(\bm{x}, \bm{v}, t) \leftarrow
   w'_{\rm{fprev}}(\bm{x}, \bm{v}, t) 
   - \eta \delta'(\bm{x} + \bm{v}, \bm{v}, t) f(\bm{x}, \bm{v}, t)
   \label{eq:weight-fprev-update}
 \end{equation}
-ただし，$\delta'(\bm{x} + \bm{v}, \bm{v}, t)$は$f'(\bm{x} + \bm{v}, \bm{v}, t)$の誤差を表している(式\ref{todo}を参照)．
+ただし，$\delta'(\bm{x} + \bm{v}, \bm{v}, t)$は$f'(\bm{x} + \bm{v}, \bm{v}, t)$の誤差を表している(式\ref{eq:deep-learning-middle-error}を参照)．
 実行する上ではpyTorchによって自動微分が行われるので，このような更新式の導出は必要ない．
 
 注意すべき点として，式(\ref{eq:weighted-streaming})からわかるように並進をするとき最も外側の座標の仮想粒子の分布関数は算出することができない．そのため，並進をするたびに外枠一ます分の分布関数は消滅してしまうので，入力されるデータの大きさに比べて，出力されるデータの大きさは並進の回数分小さくなる(図\ref{todo})．
@@ -144,7 +141,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
 \begin{equation}
   t_i = t_0 + i \Delta T \hspace{10pt} (0 \leq i \leq n)
 \end{equation}
-のように表す．なお，$\hat{\bm{u}}(\bm{x}, t_i)$は実測の無次元流速，$\hat{\rho}(\bm{x}, t_i)$は実測の無次元圧力を表す($0 \leq i \leq n$)．更に，時刻$t_i$ $(0 \leq i \leq n-1)$のデータが入力されたときの内部における時刻$t_i + t$($0 \leq t \leq \Delta T$)の衝突(並進)後の仮想粒子の分布関数とそれから式(\ref{todo})によって得られる巨視的な流速，圧力をそれぞれ
+のように表す．なお，$\hat{\bm{u}}(\bm{x}, t_i)$は実測の無次元流速，$\hat{\rho}(\bm{x}, t_i)$は実測の無次元圧力を表す($0 \leq i \leq n$)．更に，時刻$t_i$ $(0 \leq i \leq n-1)$のデータが入力されたときの内部における時刻$t_i + t$($0 \leq t \leq \Delta T$)の衝突(並進)後の仮想粒子の分布関数とそれから式(\ref{eq:lbm-macro-velocity}), (\ref{eq:lbm-macro-density})によって得られる巨視的な流速，圧力をそれぞれ
 \begin{equation}
   f_i^{(\prime)}(\bm{x}, \bm{v}, t)
   \label{eq:time-series-f}
@@ -159,7 +156,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
 \end{equation}
 と表すことにする．局所平衡分布関数$f_i^{eq}(\bm{x}, \bm{v}, t)$も同様である．
 
-まずはこの時系列性があるモデルの入出力を概観する．このモデルのタスクは，$(\hat{\bm{u}}(\bm{x}, t_i), \hat{\rho}(\bm{u}, t_i))$が$i = 0$から$i = n-1$まで順次与えられたときにそれぞれに対して$(\hat{\bm{u}}(\bm{x}, t_{i+1}), \hat{\rho}(\bm{x}, t_{i+1}))$を予測することである．モデルの予測流速と圧力は，式(\ref{eq:time-series-u}), (\ref{eq:time-series-rho})から$\bm{u}_i(\bm{x}, \Delta T)$，$\rho_i(\bm{x}, \Delta T)$として得られ，式\ref{todo}より二乗損失は次のように表される．
+まずはこの時系列性があるモデルの入出力を概観する．このモデルのタスクは，$(\hat{\bm{u}}(\bm{x}, t_i), \hat{\rho}(\bm{u}, t_i))$が$i = 0$から$i = n-1$まで順次与えられたときにそれぞれに対して$(\hat{\bm{u}}(\bm{x}, t_{i+1}), \hat{\rho}(\bm{x}, t_{i+1}))$を予測することである．モデルの予測流速と圧力は，式(\ref{eq:time-series-u}), (\ref{eq:time-series-rho})から$\bm{u}_i(\bm{x}, \Delta T)$，$\rho_i(\bm{x}, \Delta T)$として得られ，式(\ref{eq:deep-learning-loss})より二乗損失は次のように表される．
 \begin{equation}
   E = \sum_{\substack{\bm{x} \\ 0 \leq i \leq n-1}} 
   \left\| \bm{u}_i(\bm{x}, \Delta T) - \hat{\bm{u}}(\bm{x}, t_{i+1}) \right\|^2 +

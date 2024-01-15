@@ -145,9 +145,9 @@ $2 \leq k \leq m$とする．式(\ref{eq:deep-learning-neuron-output}), (\ref{eq
 を満たす必要がある．これらを満たす局所平衡分布関数はマクスウェル分布\cite{todo}において$|\bm{u}|$が二次の項まで展開すると得られて，以下のように定義される．
 \begin{equation}
   f^{eq}(\bm{x}, \bm{v}, t) = c(\bm{v}) \rho(\bm{x}, t) \left[ 1 + 3\bm{v} \cdot \bm{u}(\bm{x}, t) + \frac{9}{2}(\bm{v} \cdot \bm{u}(\bm{x}, t))^2 - \frac{3}{2}\bm{u}(\bm{x}, t)^2 \right]
-  \label{eq:lbm-eq}
+  \label{eq:lbm-eq-1}
 \end{equation}
-ただし，式(\ref{eq:lbm-eq-macro-density}), (\ref{eq:lbm-eq-macro-velocity}), (\ref{eq:lbm-eq})内の$\rho(\bm{x}, t)$, $\bm{u}(\bm{x}, t)$はそれぞれ式(\ref{eq:lbm-macro-density}), (\ref{eq:lbm-macro-velocity})で求めた値を用いる．また，$c(\bm{v})$は速度ベクトル$\bm{v}$に対する重みであり，D2Q9モデルでは
+ただし，式(\ref{eq:lbm-eq-macro-density}), (\ref{eq:lbm-eq-macro-velocity}), (\ref{eq:lbm-eq-1})内の$\rho(\bm{x}, t)$, $\bm{u}(\bm{x}, t)$はそれぞれ式(\ref{eq:lbm-macro-density}), (\ref{eq:lbm-macro-velocity})で求めた値を用いる．また，$c(\bm{v})$は速度ベクトル$\bm{v}$に対する重みであり，D2Q9モデルでは
 \begin{equation}
   c(\bm{v}) = \left\{
     \begin{array}{ll}
@@ -158,7 +158,7 @@ $2 \leq k \leq m$とする．式(\ref{eq:deep-learning-neuron-output}), (\ref{eq
   \right.
   \label{eq:lbm-weight}
 \end{equation}
-と求められる．以上の式(\ref{eq:lbm-bgk-lattice-boltzmann}), (\ref{eq:lbm-eq}), (\ref{eq:lbm-macro-density}), 及び(\ref{eq:lbm-macro-velocity})によりLBMの基本的な計算スキームが構成された．これらの計算スキームはChapman-Enskog展開によってナビエ・ストークス方程式を空間二次精度で再現することが知られている\cite{todo}．
+と求められる．以上の式(\ref{eq:lbm-bgk-lattice-boltzmann}), (\ref{eq:lbm-eq-1}), (\ref{eq:lbm-macro-density}), 及び(\ref{eq:lbm-macro-velocity})によりLBMの基本的な計算スキームが構成された．これらの計算スキームはChapman-Enskog展開によってナビエ・ストークス方程式を空間二次精度で再現することが知られている\cite{todo}．
 
 本研究においては時空間間隔をリスケールし，$\Delta x = 1$, $\Delta t = 1$として計算を行った．その上で式(\ref{eq:lbm-bgk-lattice-boltzmann})は次のように並進と衝突の式に分離することができる．
 \begin{equation}
@@ -170,6 +170,11 @@ $2 \leq k \leq m$とする．式(\ref{eq:deep-learning-neuron-output}), (\ref{eq
   f(\bm{x}, \bm{v}, t+1)
   = f'(\bm{x}, \bm{v}, t) - \frac{1}{\tau} \left[ f'(\bm{x}, \bm{v}, t) - f^{eq}(\bm{x}, \bm{v}, t) \right]
   \label{eq:lbm-collision}
+\end{equation}
+このとき，式(\ref{eq:lbm-eq-1})は次のように表される．
+\begin{equation}
+  f^{eq}(\bm{x}, \bm{v}, t) = c_i(\bm{v}) \rho'(\bm{x}, t) \left[ 1 + 3\bm{v} \cdot \bm{u}'(\bm{x}, t) + \frac{9}{2}(\bm{v} \cdot \bm{u}'(\bm{x}, t))^2 - \frac{3}{2}\bm{u}'(\bm{x}, t)^2 \right]
+  \label{eq:lbm-eq}
 \end{equation}
 
 % Todo: 流速の式を書く
