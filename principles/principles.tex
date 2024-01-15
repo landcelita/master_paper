@@ -9,7 +9,7 @@
 
 図\ref{todo}に示す通り，深層学習は入力層，隠れ層，出力層から成るニューラルネットワークで表される．入力層は入力データを受け取り，隠れ層は入力層から出力を受け取り，出力層は隠れ層の出力を受け取る．隠れ層は複数存在し，それぞれの隠れ層は前の隠れ層の出力を受け取る．ここで，各層は複数のニューロンからなり，各ニューロンは入力された実数値に活性化関数を適用した値を出力する．その入力値は，前の層のニューロンの出力に重みをかけたものの和にバイアスを加えた値である．十分な隠れ層を持ち，重みが適切に調節されたニューラルネットワークは任意の関数を近似することができることが知られている\cite{todo}．
 
-\subsection{ニューロンの計算原理 \label{subsection:neuron-principles}}
+\subsection{ニューラルネットワークの計算原理 \label{subsection:neuron-principles}}
 より詳しく原理を説明する．合計で$m$層になるニューラルネットワークを考える．まず，入力層のニューロンの数を$n^{(1)}$とし，第$j$ ($1 \leq j \leq n^{(1)}$)ニューロンへの入力を$y_j^{(1)} \in \mathbb{R}$，ニューロンからの出力を$z_j^{(1)} \in \mathbb{R}$とする．$y_j^{(1)}$は入力データの第$j$成分を意味する．また，$z_j^{(1)}$は$y_j^{(1)}$に活性化関数$f^{(1)}: \mathbb{R} \rightarrow \mathbb{R}$を適用した値である．つまり，
 \begin{equation}
   z_j^{(1)} = f^{(1)}(y_j^{(1)})
@@ -97,33 +97,79 @@ $2 \leq k \leq m$とする．式(\ref{eq:deep-learning-neuron-output}), (\ref{eq
 
 \section{格子ボルツマン法 \label{section:lbm}}
 
-（並進の式）
+格子ボルツマン法(LBM, Lattice Boltzmann Method)は数値流体力学の一手法である．流体を有限種類の速度を持つ仮想粒子の集合とみなし，その分布関数を時空間で離散化したものに対して並進と衝突と呼ばれる操作を逐次施すことで流体の動きを表現する．この章では，LBMの基本的な原理を説明する．
+
+等温場の格子流体モデルとして，ここではD2Q9モデルを考える．D2Q9モデルは，仮想粒子の速度ベクトルが以下の式に示す9種類である二次元空間格子モデルである．
+\begin{equation}
+  \bm{v} = \left( \pm 1, \pm 1 \right), \left( \pm 1, 0 \right), \left( 0, \pm 1 \right), \left( 0, 0 \right)
+  \label{eq:lbm-velocity}
+\end{equation}
+ただし，複号任意である．これは図\ref{todo}に示すとおり，速度ベクトルは格子の中心からのオフセットで表されることを意味している．この下で，分布関数$f(\bm{x}, \bm{v}, t)$は無次元座標$\bm{x} \in \mathbb{R}^2$，無次元時刻$t \in \mathbb{R}$における速度$\bm{v}$の粒子数を表す．すると，これは任意の$\bm{v}$について以下の離散ボルツマン方程式に従う\cite{todo}．
+\begin{equation}
+  \mathrm{Sh} \frac{\partial f(\bm{x}, \bm{v}, t)}{\partial t} + \bm{v} \cdot \nabla f(\bm{x}, \bm{v}, t) = \frac{1}{\epsilon} \Omega_{\bm{v}}\left[ f(\bm{x}, \bm{v}', t) \right]
+  \label{eq:lbm-discrete-boltzmann}
+\end{equation}
+ここで，$\mathrm{Sh}$はストローハル数，$\epsilon$はクヌーセン数，$\Omega_{\bm{v}}$は仮想粒子の衝突による増減を表す衝突演算子である．ただし，$\bm{v}'$はパラメータ化されておりすべての$\bm{v}'$について演算を行うと約束する．続いて，空間と時間を$\Delta x = 1/\epsilon$, $\Delta t = \mathrm{Sh} \Delta x$によってそれぞれ分割し，式(\ref{eq:lbm-discrete-boltzmann})を時空間について一次前進差分によって近似すると次式を得る．
+\begin{equation}
+  f(\bm{x}+\bm{v}\Delta t, \bm{v}, t+\Delta t) - f(\bm{x}, \bm{v}, t) = \Omega_{\bm{v}}\left[ f(\bm{x}, \bm{v}', t) \right]
+  \label{eq:lbm-lattice-boltzmann}
+\end{equation}
+また，離散化された時空間上での分布関数から，流体の巨視的な密度$\rho(\bm{x}, t)$と巨視的な流速$\bm{u}(\bm{x}, t)$は以下のように定義される．
+\begin{equation}
+  \rho(\bm{x}, t) = \sum_{\bm{v}} f(\bm{x}, \bm{v}, t)
+  \label{eq:lbm-macro-density}
+\end{equation}
+\begin{equation}
+  \rho(\bm{x}, t) \bm{u}(\bm{x}, t) = \sum_{\bm{v}} \bm{v} f(\bm{x}, \bm{v}, t)
+  \label{eq:lbm-macro-velocity}
+\end{equation}
+式(\ref{eq:lbm-lattice-boltzmann})において，左辺が並進，右辺が衝突を表していることに注意されたい．この右辺に次式で表されるBGK(Bhatnagar-Gross-Krook)モデルと呼ばれる衝突演算子\cite{todo}を導入する．
+\begin{equation}
+  \Omega_{\bm{v}}\left[ f(\bm{x}, \bm{v}', t) \right] = -\frac{1}{\tau} \left[ f(\bm{x}, \bm{v}, t) - f^{eq}(\bm{x}, \bm{v}, t) \right]
+  \label{eq:lbm-bgk}
+\end{equation}
+ここで，$\tau$は流体の無次元緩和時間，$f^{eq}(\bm{x}, \bm{v}, t)$は局所平衡分布関数と呼ばれる関数である．式(\ref{eq:lbm-bgk})を式(\ref{eq:lbm-lattice-boltzmann})に代入すると，次式を得る．
+\begin{equation}
+  f(\bm{x}+\bm{v}\Delta t, \bm{v}, t+\Delta t) = f(\bm{x}, \bm{v}, t) - \frac{1}{\tau} \left[ f(\bm{x}, \bm{v}, t) - f^{eq}(\bm{x}, \bm{v}, t) \right]
+  \label{eq:lbm-bgk-lattice-boltzmann}
+\end{equation}
+最後に，局所平衡分布関数を求める．この関数は
+\begin{equation}
+  \rho(\bm{x}, t) = \sum_{\bm{v}} f^{eq}(\bm{x}, \bm{v}, t)
+  \label{eq:lbm-eq-macro-density}
+\end{equation}
+\begin{equation}
+  \rho(\bm{x}, t) \bm{u}(\bm{x}, t) = \sum_{\bm{v}} \bm{v} f^{eq}(\bm{x}, \bm{v}, t)
+  \label{eq:lbm-eq-macro-velocity}
+\end{equation}
+を満たす必要がある．これらを満たす局所平衡分布関数はマクスウェル分布\cite{todo}において$|\bm{u}|$が二次の項まで展開すると得られて，以下のように定義される．
+\begin{equation}
+  f^{eq}(\bm{x}, \bm{v}, t) = c(\bm{v}) \rho(\bm{x}, t) \left[ 1 + 3\bm{v} \cdot \bm{u}(\bm{x}, t) + \frac{9}{2}(\bm{v} \cdot \bm{u}(\bm{x}, t))^2 - \frac{3}{2}\bm{u}(\bm{x}, t)^2 \right]
+  \label{eq:lbm-eq}
+\end{equation}
+ただし，式(\ref{eq:lbm-eq-macro-density}), (\ref{eq:lbm-eq-macro-velocity}), (\ref{eq:lbm-eq})内の$\rho(\bm{x}, t)$, $\bm{u}(\bm{x}, t)$はそれぞれ式(\ref{eq:lbm-macro-density}), (\ref{eq:lbm-macro-velocity})で求めた値を用いる．また，$c(\bm{v})$は速度ベクトル$\bm{v}$に対する重みであり，D2Q9モデルでは
+\begin{equation}
+  c(\bm{v}) = \left\{
+    \begin{array}{ll}
+      4/9 & (\bm{v} = (0, 0)) \\
+      1/9 & (\bm{v} = (\pm 1, 0), (0, \pm 1)) \\
+      1/36 & (\bm{v} = (\pm 1, \pm 1))
+    \end{array}
+  \right.
+  \label{eq:lbm-weight}
+\end{equation}
+と求められる．以上の式(\ref{eq:lbm-bgk-lattice-boltzmann}), (\ref{eq:lbm-eq}), (\ref{eq:lbm-macro-density}), 及び(\ref{eq:lbm-macro-velocity})によりLBMの基本的な計算スキームが構成された．これらの計算スキームはChapman-Enskog展開によってナビエ・ストークス方程式を空間二次精度で再現することが知られている\cite{todo}．
+
+本研究においては時空間間隔をリスケールし，$\Delta x = 1$, $\Delta t = 1$として計算を行った．その上で式(\ref{eq:lbm-bgk-lattice-boltzmann})は次のように並進と衝突の式に分離することができる．
 \begin{equation}
   f'(\bm{x}+\bm{v}, \bm{v}, t)
   = f(\bm{x}, \bm{v}, t)
-  \label{eq:principles-streaming}
+  \label{eq:lbm-streaming}
 \end{equation}
-
-（衝突の式）
 \begin{equation}
-  f(\bm{x}, \bm{v}, t+1) = 
-  f'(\bm{x}, \bm{v}, t) - 
-  \frac{1}{\tau} \left[ 
-    f'(\bm{x}, \bm{v}, t) - f^{eq}(\bm{x}, \bm{v}, t) 
-  \right]
-  \label{eq:principles-collision}
-\end{equation}
-
-(局所平衡分布関数の式)
-\begin{equation}
-  f^{eq}(\bm{x}, \bm{v}, t) = 
-  c_i(\bm{v}) \rho(\bm{x}, t) \left[ 
-    1 
-    + 3\bm{v} \cdot \bm{u}(\bm{x}, t) 
-    + \frac{9}{2}(\bm{v} \cdot \bm{u}(\bm{x}, t))^2 
-    - \frac{3}{2}\bm{u}(\bm{x}, t)^2 
-  \right]
-  \label{eq:principles-equilibrium}
+  f(\bm{x}, \bm{v}, t+1)
+  = f'(\bm{x}, \bm{v}, t) - \frac{1}{\tau} \left[ f'(\bm{x}, \bm{v}, t) - f^{eq}(\bm{x}, \bm{v}, t) \right]
+  \label{eq:lbm-collision}
 \end{equation}
 
 % Todo: 流速の式を書く
