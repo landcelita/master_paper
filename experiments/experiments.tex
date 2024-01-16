@@ -2,12 +2,12 @@
 本論文では，提案モデルの性能検証のために日本近辺の風速予測を実施した．また，性能の比較のためにCNNによるエンコーダ・デコーダとLSTMを用いたU-Net-likeなモデルを実装し，それぞれのモデルの性能を比較した．
 
 \section{実験の概要 \label{section:exp-overview}}
-本実験では，提案モデルと\ref{subsection:exp-u-net-like-model}項で説明するU-Net-likeなモデルの2つのモデルに3時刻分の時系列データを入力し，それぞれの3時間後の風速を予測するように訓練した．その学習には，\ref{section:exp-data-and-condition}節で述べるように気象庁が提供している日本近辺の風速と気圧データを用いた．
+本実験では，提案モデルと\ref{subsection:exp-u-net-like-model}項で説明するU-Net-likeなモデルの2つのモデルに3時刻分の時系列データを入力し，それぞれの3時間後の風速を予測するように訓練した．その学習と評価には，\ref{section:exp-data-and-condition}節で述べるように気象庁が提供している日本近辺の風速と気圧データを用いた．
 
 モデルが出力した最終時刻の予測値と実測値を用いて，以下の評価指標を算出した．ここで，指標に用いられる「風速」はベクトル量ではなく，スカラー量であることに注意されたい．
 % 学習するLBM
 % 学習しないLBM
-% U-Net-Like
+% U-Net-like
 % で，
 % 全体のRMSE, ME
 % 座標ごとのRMSE, ME 風速, 風向 %todo 東西方向, 南北方向
@@ -16,14 +16,12 @@
 % 
 % それぞれのRMSE比についても書く(4.4のほうかな？)
 \begin{enumerate}
-  \item 全体の風速のRMSE(Root Mean Squared Error, 二乗平均平方根誤差)と提案モデルのRMSE改善率
-  \item 全体の風速のME(Mean Error, 平均誤差)
-  \item 全体の風向のRMSEと提案モデルのRMSE改善率
-  \item 全体の風向のME
-  \item 座標ごとの風速のRMSEと提案モデルのRMSE改善率
-  \item 座標ごとの風速のME
-  \item 座標ごとの風向のRMSEと提案モデルのRMSE改善率
-  \item 座標ごとの風向のME
+  \item 全体の風速の$\mathrm{RMSE[m/s]}$(Root Mean Squared Error, 二乗平均平方根誤差)と提案モデルのRMSE改善率[\%]
+  \item 全体の風速の$\mathrm{ME[m/s]}$(Mean Error, 平均誤差)
+  \item 全体の風向の$\mathrm{RMSE[^\circ]}$と提案モデルのRMSE改善率[\%]
+  \item 座標ごとの風速の$\mathrm{RMSE[m/s]}$と提案モデルのRMSE改善率[\%]
+  \item 座標ごとの風速の$\mathrm{ME[m/s]}$
+  \item 座標ごとの風向の$\mathrm{RMSE[^\circ]}$と提案モデルのRMSE改善率[\%]
   % \item 時間ごとの風速のRMSEと提案モデルの改善率 %todo
   % \item 時間ごとの風速のME
   % \item 時間ごとの風向のRMSEと提案モデルの改善率
@@ -44,24 +42,16 @@
   \label{eq:exp-rmse-direction}
 \end{equation}
 \begin{equation}
-  (\mathrm{全体の風向のME [^\circ]}) = \frac{1}{NM} \sum_{\bm{x}, i} \mathrm{arg}(\bm{w}(\bm{x}, t_i), \hat{\bm{w}}(\bm{x}, t_i))
-  \label{eq:exp-me-direction}
-\end{equation}
-\begin{equation}
-  (\mathrm{座標ごとの風速のRMSE [m/s]}) = \sqrt{\frac{1}{N} \sum_{\bm{x}} (|\bm{w}(\bm{x}, t_i)| - |\hat{\bm{w}}(\bm{x}, t_i)|)^2}
+  (\mathrm{座標ごとの風速のRMSE [m/s]}) = \sqrt{\frac{1}{N} \sum_{\bm{i}} (|\bm{w}(\bm{x}, t_i)| - |\hat{\bm{w}}(\bm{x}, t_i)|)^2}
   \label{eq:exp-rmse-per-point}
 \end{equation}
 \begin{equation}
-  (\mathrm{座標ごとの風速のME [m/s]}) = \frac{1}{N} \sum_{\bm{x}} (|\bm{w}(\bm{x}, t_i)| - |\hat{\bm{w}}(\bm{x}, t_i)|)
+  (\mathrm{座標ごとの風速のME [m/s]}) = \frac{1}{N} \sum_{\bm{i}} (|\bm{w}(\bm{x}, t_i)| - |\hat{\bm{w}}(\bm{x}, t_i)|)
   \label{eq:exp-me-per-point}
 \end{equation}
 \begin{equation}
-  (\mathrm{座標ごとの風向のRMSE [^\circ]}) = \sqrt{\frac{1}{N} \sum_{\bm{x}} \mathrm{arg}(\bm{w}(\bm{x}, t_i), \hat{\bm{w}}(\bm{x}, t_i))^2}
+  (\mathrm{座標ごとの風向のRMSE [^\circ]}) = \sqrt{\frac{1}{N} \sum_{\bm{i}} \mathrm{arg}(\bm{w}(\bm{x}, t_i), \hat{\bm{w}}(\bm{x}, t_i))^2}
   \label{eq:exp-rmse-direction-per-point}
-\end{equation}
-\begin{equation}
-  (\mathrm{座標ごとの風向のME [^\circ]}) = \frac{1}{N} \sum_{\bm{x}} \mathrm{arg}(\bm{w}(\bm{x}, t_i), \hat{\bm{w}}(\bm{x}, t_i))
-  \label{eq:exp-me-direction-per-point}
 \end{equation}
 ただし，$M$は格子点$\bm{x}$の総数，$N$はデータセットの総数とし，そのうちの$i$番目のデータセットについて$\bm{w}(\bm{x}, t_i)$をモデルによる予測風速ベクトル，$\hat{\bm{w}}(\bm{x}, t_i)$を実測の風速ベクトルとした．ここで，$\bm{w}(\bm{x}, t_i)$と$\hat{\bm{w}}(\bm{x}, t_i)$は共に速度の次元を持つ．また，$\mathrm{arg}$は二つのベクトルが成す角度を返す関数である．
 
@@ -86,12 +76,12 @@
 
 提供されているデータは3時間間隔であり，(前日の)21:00, 0:00, 3:00, 6:00の4時刻分をひとまとめにして時系列データとした．これを2011年1月1日から2020年12月31日までの3650日分用意し(統計を取る際の簡便化のために閏日は除いてある)，\ref{subsection:exp-data-preprocessing}項で述べる処理をする前の全体のデータセットとした．
 
-処理前の全体のデータセットの詳細な統計量を表\ref{todo:table:exp-pre-data-statistics}に示す．
+%処理前の全体のデータセットの詳細な統計量を表\ref{todo:table:exp-pre-data-statistics}に示す．
 
 \subsection{データの前処理 \label{subsection:exp-data-preprocessing}}
 \ref{subsection:exp-data}項で述べたデータセットをそのまま入出力に用いるのではなく，前処理を実施した．その処理の詳細を以下に示す．
 
-図\ref{fig:exp-averaging}に示すように，$505 \times 480$の行列を更に$10 \times 10$の格子によって区切り，この格子内で風速と気圧を平均化することで$50 \times 48$のサイズまで落とした．なお，端数分は切り捨てている．これは，提案モデルの格子の大きさを適切に設定することで，3時間で変化する風速の空間的な変化を捉えることができると考えたためである．このデータセットを改めて全体のデータセットとした．このデータセットの詳細な統計量を表\ref{todo:table:exp-data-statistics}に示す．
+図\ref{fig:exp-averaging}に示すように，$505 \times 480$の行列を更に$10 \times 10$の格子によって区切り，この格子内で風速と気圧を平均化することで$50 \times 48$のサイズまで落とした．なお，端数分は切り捨てている．これは，提案モデルの格子の大きさを適切に設定することで，3時間で変化する風速の空間的な変化を捉えることができると考えたためである．このデータセットを改めて全体のデータセットとした．%このデータセットの詳細な統計量を表\ref{todo:table:exp-data-statistics}に示す．
 
 \begin{figure}[bp]
   \centering
@@ -105,7 +95,7 @@
 \subsection{学習条件 \label{subsection:exp-condition}}
 
 続いて，モデルの詳細な学習条件について述べる．提案モデルのアーキテクチャについての概要を\ref{subsection:time-series-model}項で述べたがここではより具体的に数値を提示し，モデルの仕様を詳細化する．図\ref{fig:exp-model-architecture}に示したように，このモデルでは並進と衝突をそれぞれ5回行った(緑の実線矢印が並進を表し，緑の破線矢印が衝突を表している)．すなわち式(\ref{eq:time-series-t})において$\Delta T = 5$である．\ref{subsection:time-series-less-model}項で述べた通り衝突の回数分だけ外枠が削られるため，図中の赤破線によって強調されているように出力層の大きさは入力層に比べて東西南北の端$5$マス分減少している．
-(前日の)21:00, 0:00, 3:00の3時刻分のデータを入力として0:00, 3:00, 6:00の風速を予測させた．すなわち，式(\ref{eq:time-series-input})において$n=4$，式(\ref{eq:time-series-t})において無次元時刻$\Delta T$は$3[\mathrm{h}]$相当である． %todo
+(前日の)21:00, 0:00, 3:00の3時刻分のデータを入力として0:00, 3:00, 6:00の風速を予測させた．すなわち，式(\ref{eq:time-series-input})において$n=4$，式(\ref{eq:time-series-t})において無次元時刻$\Delta T$は$3[\mathrm{h}]$相当である．
 
 \begin{figure}[bp]
   \centering
@@ -121,6 +111,8 @@
 % 損失の重み付けについて書く(速度に重みを強くつけた)
 
 \section{実験結果 \label{section:exp-results}}
+\ref{section:exp-overview}節で述べた評価指標を用いて，提案モデルの性能を評価した．その結果を順に述べる．
+提案モデルの全体の風速の$\mathrm{RMSE[m/s]}$, $\mathrm{ME[m/s]}$はそれぞれ$1.0432\mathrm{[m/s]}$, $-0.1909\mathrm{[m/s]}$であった．提案モデルの全体の風向の$\mathrm{RMSE[^\circ]}$は$21.444\mathrm{[^\circ]}$であった．また，提案モデルの座標ごとの風速の$\mathrm{RMSE[m/s]}$, $\mathrm{ME[m/s]}$と風向の$\mathrm{RMSE[^\circ]}$はそれぞれ図\ref{fig:exp-speed-rmse-per-point}(a), \ref{fig:exp-speed-ma-per-point}(a), \ref{fig:exp-direction-rmse-per-point}(a)に示す通りであった．
 
 \section{物理的な構造を含まない深層学習モデルによる実験結果 \label{section:exp-results-without-physicial-structure}}
 
@@ -137,8 +129,70 @@
 その他の利用したデータ及び学習条件は\ref{section:exp-data-and-condition}節と同様である．
 
 \subsection{実験結果 \label{subsection:exp-results-without-physicial-structure}}
+\ref{section:exp-overview}節で述べた評価指標を用いて，U-Net-likeなモデルの性能を評価し，提案モデルと比較した．
+U-Net-likeなモデルについて，全体の風速の$\mathrm{RMSE[m/s]}$と$\mathrm{ME[m/s]}$，そして風向の$\mathrm{RMSE[^\circ]}$をそれぞれ提案モデルの結果と比較しながら，それぞれ表\ref{table:exp-total-rmse}に示す．また，座標ごとの風速の$\mathrm{RMSE[m/s]}$と$\mathrm{ME[m/s]}$，そして風向の$\mathrm{RMSE[^\circ]}$をそれぞれ提案モデルの結果と比較しながら，それぞれ図\ref{fig:exp-speed-rmse-per-point}, \ref{fig:exp-speed-ma-per-point}, \ref{fig:exp-direction-rmse-per-point}に示す．
 
+\begin{table}[bp]
+  \caption{全体の風速の$\mathrm{RMSE[m/s]}$}
+  \label{table:exp-total-rmse}
+  \centering
+  \begin{tabular}{ccc}
+    \hline
+    提案モデル & U-Net-likeなモデル & RMSE改善率 \\
+    \hline
+    1.0432 & 1.0930 & 4.57 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[bp]
+  \caption{全体の風速の$\mathrm{ME[m/s]}$}
+  \label{table:exp-total-me}
+  \centering
+  \begin{tabular}{cc}
+    \hline
+    提案モデル & U-Net-likeなモデル \\
+    \hline
+    -0.1909 & 0.2001 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[bp]
+  \caption{全体の風向の$\mathrm{RMSE[^\circ]}$}
+  \label{table:exp-total-direction-rmse}
+  \centering
+  \begin{tabular}{ccc}
+    \hline
+    提案モデル & U-Net-likeなモデル & RMSE改善率 \\
+    \hline
+    21.444 & 22.521 & 4.78 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{figure}[bp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./experiments/figs/result_speed_rmse_per_point.svg.eps}
+  \caption{座標ごとの風速のRMSE[m/s] (a)提案モデルの$\mathrm{RMSE[m/s]}$ (b)U-Net-likeモデルの$\mathrm{RMSE[m/s]}$ (c)提案モデルによる$\mathrm{RMSE改善率[\%]}$}
+  \label{fig:exp-speed-rmse-per-point}
+\end{figure}
+
+\begin{figure}[bp]
+  \centering
+  \includegraphics[width=0.6\linewidth]{./experiments/figs/result_speed_me_per_point.svg.eps}
+  \caption{座標ごとの風速の$\mathrm{ME[m/s]}$ (a)提案モデルの$\mathrm{ME[m/s]}$ (b)U-Net-likeモデルの$\mathrm{ME[m/s]}$}
+  \label{fig:exp-speed-ma-per-point}
+\end{figure}
+
+\begin{figure}[bp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./experiments/figs/result_direction_rmse_per_point.svg.eps}
+  \caption{座標ごとの風向の$\mathrm{RMSE[^\circ]}$ (a)提案モデルの$\mathrm{RMSE[^\circ]}$ (b)U-Net-likeモデルの$\mathrm{RMSE[^\circ]}$ (c)提案モデルによるRMSE改善率$\mathrm{[\%]}$}
+  \label{fig:exp-direction-rmse-per-point}
+\end{figure}
 
 \section{考察 \label{section:exp-discussion}}
+
 % 平均化についてもふれて，どうやってアップスケーリングするか
 % 短所として外枠の風速が予測できないことにふれる
