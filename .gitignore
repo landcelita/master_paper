@@ -4,7 +4,6 @@
 *.log
 *.fls
 *.synctex.gz
-*.pdf
 *.bbl
 *.blg
 *.eps
