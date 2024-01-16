@@ -4,6 +4,7 @@
   month = {02},
   title = {Can deep learning beat numerical weather prediction?},
   volume = {379},
+  pages = {20200097},
   journal = {Philosophical Transactions of The Royal Society A Mathematical Physical and Engineering Sciences},
   doi = {10.1098/rsta.2020.0097}
 }
@@ -128,7 +129,7 @@ bookTitle="Turbulence in Fluids: Stochastic and Numerical Modelling",
 year="1990",
 publisher="Springer Netherlands",
 address="Dordrecht",
-pages="205--241",
+pages="205-241",
 abstract="We have already seen that under certain approximations consisting in neglecting the buoyancy in the Boussinesq approximation derived from the Navier-Stokes equations, the temperature {\$}{\$}T{\backslash}left( {\{}{\backslash}vec x,t{\}} {\backslash}right){\$}{\$}satisfied a passive scalar type diffusion equation(VIII-1-1){\$}{\$}{\backslash}frac{\{}{\{}{\backslash}partial T{\}}{\}}{\{}{\{}{\backslash}partial t{\}}{\}} + {\backslash}vec u.{\backslash}vec {\backslash}nabla T = {\backslash}kappa {\{}{\backslash}nabla ^2{\}}T{\$}{\$}and was simply transported by the fluid particle (and diffused by molecular effects) without any action on the flow dynamics. More generally, one can consider any passive quantity which diffuses according to eq. (VIII-1-1), such as a dye which marks the flow. The Schmidt number of the passive scalar is where k is the molecular diffusivity of the scalar. It corresponds to the Prandtl number when the passive scalar is the temperature. Since we will consider only one diffusing quantity here, we will associate it with the temperature, and speak of the Prandtl number of the passive scalar.",
 isbn="978-94-009-0533-7",
 doi="10.1007/978-94-009-0533-7_8",
@@ -196,7 +197,6 @@ abstract = {High-dimensional data can be converted to low-dimensional codes by t
   author={Diederik P. Kingma and Jimmy Ba},
   journal={CoRR},
   year={2014},
-  volume={abs/1412.6980},
   url={https://api.semanticscholar.org/CorpusID:6628106}
 }
 
@@ -251,7 +251,7 @@ doi = {10.1162/neco.1997.9.8.1735},
 abstract = {Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.},
 journal = {Neural Comput.},
 month = {nov},
-pages = {1735?1780},
+pages = {1735-1780},
 numpages = {46}
 }
 
@@ -326,10 +326,39 @@ issn = {1532-4435},
 abstract = {Derivatives, mostly in the form of gradients and Hessians, are ubiquitous in machine learning. Automatic differentiation (AD), also called algorithmic differentiation or simply "auto-diff", is a family of techniques similar to but more general than backpropagation for efficiently and accurately evaluating derivatives of numeric functions expressed as computer programs. AD is a small but established field with applications in areas including computational uid dynamics, atmospheric sciences, and engineering design optimization. Until very recently, the fields of machine learning and AD have largely been unaware of each other and, in some cases, have independently discovered each other's results. Despite its relevance, general-purpose AD has been missing from the machine learning toolbox, a situation slowly changing with its ongoing adoption under the names "dynamic computational graphs" and "differentiable programming". We survey the intersection of AD and machine learning, cover applications where AD has direct relevance, and address the main implementation techniques. By precisely defining the main differentiation techniques and their interrelationships, we aim to bring clarity to the usage of the terms "autodiff", "automatic differentiation", and "symbolic differentiation" as these are encountered more and more in machine learning settings.},
 journal = {J. Mach. Learn. Res.},
 month = {jan},
-pages = {5595?5637},
+pages = {5595-5637},
 numpages = {43},
 keywords = {differentiable programming, backpropagation}
 }
+
+@article{journals/corr/RonnebergerFB15,
+  added-at = {2023-12-13T04:02:58.000+0100},
+  author = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  biburl = {https://www.bibsonomy.org/bibtex/2b99e0743410b0939acaeb871134a21d7/admin},
+  ee = {http://arxiv.org/abs/1505.04597},
+  interhash = {9158de16b2caff7458df054dc6fc2748},
+  intrahash = {b99e0743410b0939acaeb871134a21d7},
+  journal = {CoRR},
+  keywords = {},
+  timestamp = {2023-12-13T04:02:58.000+0100},
+  title = {U-Net: Convolutional Networks for Biomedical Image Segmentation.},
+  url = {http://dblp.uni-trier.de/db/journals/corr/corr1505.html#RonnebergerFB15},
+  year = 2015
+}
+
+@inproceedings{10.5555/3045118.3045167,
+author = {Ioffe, Sergey and Szegedy, Christian},
+title = {Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift},
+year = {2015},
+publisher = {JMLR.org},
+abstract = {Training Deep Neural Networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layers change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to this phenomenon as internal covariate shift, and address the problem by normalizing layer inputs. Our method draws its strength from making normalization a part of the model architecture and performing the normalization for each training mini-batch. Batch Normalization allows us to use much higher learning rates and be less careful about initialization, and in some cases eliminates the need for Dropout. Applied to a state-of-the-art image classification model, Batch Normalization achieves the same accuracy with 14 times fewer training steps, and beats the original model by a significant margin. Using an ensemble of batch-normalized networks, we improve upon the best published result on ImageNet classification: reaching 4.82\% top-5 test error, exceeding the accuracy of human raters.},
+booktitle = {Proceedings of the 32nd International Conference on International Conference on Machine Learning - Volume 37},
+pages = {448-456},
+numpages = {9},
+location = {Lille, France},
+series = {ICML'15}
+}
+
 
 @book {Asakura1989,
   author = {ì˙ñ{ó¨ëÃóÕäwâÔï“},
@@ -340,7 +369,7 @@ keywords = {differentiable programming, backpropagation}
 }
 
 @book {Inamuro2020,
-author = {àÓé∫ó≤ìÒ, ãgñÏê≥êl, óÈñÿçNóS íò},
+author = {àÓé∫ó≤ìÒ},
 title = {äiéqÉ{ÉãÉcÉ}Éìñ@ì¸ñÂ : ï°éGã´äEÇ®ÇÊÇ—à⁄ìÆã´äEó¨ÇÍÇÃêîílåvéZñ@},
 publisher = {ä€ëPèoî≈},
 year = {2020.1},
