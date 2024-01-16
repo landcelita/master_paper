@@ -2,7 +2,7 @@
 本論文では，提案モデルの性能検証のために日本近辺の風速予測を実施した．また，性能の比較のためにCNNによるエンコーダ・デコーダとLSTMを用いたU-Net-likeなモデルを実装し，それぞれのモデルの性能を比較した．
 
 \section{実験の概要 \label{section:exp-overview}}
-ここに何をメトリクスとして取ったのかとかを書く
+本実験では，モデルに4時刻分の時系列データを入力し，それぞれの3時間後の風速を予測するというタスクを行った．また，提案モデルの学習には，\ref{section:exp-data-and-condition}節で述べるように，気象庁が提供している日本近辺の風速と気圧データを用いた．
 
 \section{利用したデータ及び学習条件 \label{section:exp-data-and-condition}}
 \subsection{利用したデータ \label{subsection:exp-data}}
@@ -63,6 +63,21 @@
 \section{実験結果 \label{section:exp-results}}
 
 \section{物理的な構造を含まない深層学習モデルによる実験結果 \label{section:exp-results-without-physicial-structure}}
+
+\subsection{物理的な構造を含まない深層学習モデル \label{subsection:exp-u-net-like-model}}
+提案モデルと比較するために用いた物理的な構造をもたないモデルを図\ref{fig:exp-u-net-like-model}に示す．このモデルは\ref{subsec:chen2021}項で述べたChenらのモデルとU-Net\cite{journals/corr/RonnebergerFB15}を参考にしたものである．図中の各層の左に大きさを，上部にチャンネル数を記載してある．入出力部分では，風速の東西成分と南北成分，そして気圧を正規化して3チャンネルにまとめた．エンコーダ・デコーダの各層には畳み込み層とバッチ正規化\cite{10.5555/3045118.3045167}，活性化関数である$\tanh$を用いた．また，エンコーダの各層の出力をコピーしてデコーダの対応する層の入力に結合するスキップコネクションを用いた．エンコーダから出力される信号を平滑化してからLSTMユニットに入力し，その出力をデコーダに入力した．デコードの際にはサイズを復元するために逆畳み込み層を用いた．出力の際に，提案モデルと性能比較をできるように周囲5マス分を切り捨てた．
+
+\begin{figure}[bp]
+  \centering
+  \includegraphics[width=0.9\linewidth]{./experiments/figs/u_net_like_model_architecture.svg.eps}
+  \caption{物理的な構造を含まない深層学習モデルのアーキテクチャ}
+  \label{fig:exp-u-net-like-model}
+\end{figure}
+
+その他の利用したデータ及び学習条件は\ref{section:exp-data-and-condition}節と同様である．
+
+\subsection{実験結果 \label{subsection:exp-results-without-physicial-structure}}
+
 
 \section{考察 \label{section:exp-discussion}}
 % 平均化についてもふれて，どうやってアップスケーリングするか
