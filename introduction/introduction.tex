@@ -13,7 +13,7 @@ Chenら(2021)は，CNNとLSTMを用いたモデルによる正方形領域での
     \label{fig:chen2021_architecture}
 \end{figure}
 
-このモデルを使って，彼らは図\ref{fig:chen2021_region}に示すようにアメリカのインディアナ州内部で，2km間隔の$10 \times 10$格子点上で2時間先の風速予測を行い，単にANN(Artificial Neural Network)\cite{485891}やLSTMのみを用いたモデルに比較して精度が向上することを示した．具体的には，全体の風速予測の平均絶対誤差(Mean Absolute Error, MAE)が$0.35 \mathrm{m/s}$減少し，これはpersistenceなモデル，ANNのみのモデル, LSTMのみのモデルの結果に比べてそれぞれ$32.7\%$, $28.8\%$, $18.9\%$低い値であると主張している．ここで，persistenceなモデルとは，風速の時間変化を考慮せず，直前の風速をそのまま予測値とするモデルである．
+このモデルを使って，彼らは図\ref{fig:chen2021_region}に示すようにアメリカのインディアナ州内部で，2km間隔の$10 \times 10$格子点上で2時間先の風速予測を行い，単にANN(Artificial Neural Network)\cite{485891}やLSTMのみを用いたモデルに比較して精度が向上することを示した．具体的には，全体の風速予測の平均絶対誤差(Mean Absolute Error, MAE)が$0.35 \mathrm{m/s}$減少し，これはPersistence モデル，ANNのみのモデル, LSTMのみのモデルの結果に比べてそれぞれ$32.7\%$, $28.8\%$, $18.9\%$低い値であると主張している．ここで，Persistence モデルとは，風速の時間変化を考慮せず，直前の風速をそのまま予測値とするモデルである．
 \begin{figure}[bp]
     \centering
     \includegraphics[width=0.8\textwidth]{./introduction/figs/chen2021_region.png.eps}
