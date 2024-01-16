@@ -3,7 +3,7 @@
 
 \section{提案モデルの概要}
 提案モデルの概要図を図\ref{fig:overview}に示す．この図が示すように，提案モデルはLBMをベースとしている．その並進と衝突の計算に重みを導入し，予測速度と圧力に対する実測速度と圧力との誤差からその重みを誤差逆伝播法によって学習することで，座標に依存する流体の振る舞いを精度良くシミュレーションすることを試みる．学習の流れを詳述する．まずある無次元時刻$t_0$の各格子点上での流体の速度，圧力から，仮想粒子の分布$f(\bm{x}, \bm{v}, t_0)$を導出する．そこから$\Delta T$ステップに亘り，並進と衝突の計算によって仮想粒子の分布$f'(\bm{x}, \bm{v}, t_0+i)$, $f(\bm{x}, \bm{v}, t_0+i+1) \hspace{10pt}(i=0,...,\Delta T - 1)$を逐次的に得る．最終的な時刻$t_1 = t_0 + \Delta T$での分布$f(\bm{x}, \bm{v}, t_1)$から巨視的な流体の速度と圧力を算出し，これと実測流体の速度と圧力との誤差から，各ステップに導入した重みを誤差逆伝播法によって学習する．
-\begin{figure}[tbp]
+\begin{figure}[btp]
   \centering
   \includegraphics[width=13cm]{./how_to_assemble/figs/model_overview.svg.eps}
   \caption{提案モデルの概要図}
@@ -13,15 +13,15 @@
 \section{提案モデルの原理}
 この節では，具体的にどのようにLBMに重みを導入し学習を行うか，その原理について説明する．まずは図\ref{fig:model-comparison}(a)で表されるように，ある一時刻のデータのみが入力されたときにその$\Delta T$後の流速のみを予想する時系列性のないモデルを説明する．その後，図\ref{fig:model-comparison}(b)で表されるように$\Delta T$おきの時系列データが入力されたとき，それぞれの時刻に対して$\Delta T$後の時系列データを予測するモデルを説明する．
 
-\begin{figure}[tbp]
+\subsection{時系列性のないモデル\label{subsection:time-series-less-model}}
+時系列性のないモデルでは，ある無次元時刻$t_0$での流速$\hat{\bm{u}}(\bm{x}, t_0)$と圧力$\hat{\rho}(\bm{x}, t_0)$のデータが入力されたときに時刻$t_1 = t_0 + \Delta T$での流速$\hat{\bm{u}}(\bm{x}, t_1)$と圧力$\hat{\rho}(\bm{x}, t_1)$を予測する．まずLBMの並進と衝突の式にどのように重みを導入するかを説明する．
+
+\begin{figure}[bp]
   \centering
   \includegraphics[width=0.7\linewidth]{./how_to_assemble/figs/time_series_comparison.svg.eps}
   \caption{時系列性のないモデルと時系列性のあるモデルの比較 (a)時系列性のないモデルの入出力 (b)時系列性のあるモデルの入出力}
   \label{fig:model-comparison}
 \end{figure}
-
-\subsection{時系列性のないモデル\label{subsection:time-series-less-model}}
-時系列性のないモデルでは，ある無次元時刻$t_0$での流速$\hat{\bm{u}}(\bm{x}, t_0)$と圧力$\hat{\rho}(\bm{x}, t_0)$のデータが入力されたときに時刻$t_1 = t_0 + \Delta T$での流速$\hat{\bm{u}}(\bm{x}, t_1)$と圧力$\hat{\rho}(\bm{x}, t_1)$を予測する．まずLBMの並進と衝突の式にどのように重みを導入するかを説明する．
 
 LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて以下のように表された(再掲)．
 \begin{equation}
@@ -134,7 +134,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
 実行する上ではpyTorchによって自動微分が行われるので，このような更新式の導出は必要ない．
 
 注意すべき点として，式(\ref{eq:weighted-streaming})からわかるように並進をするとき最も外側の座標の仮想粒子の分布関数は算出することができない．そのため，並進をするたびに外枠1マス分の分布関数は消滅してしまうので，入力されるデータの大きさに比べて，出力されるデータの大きさは並進の回数分小さくなる．図\ref{fig:edge-streaming}に並進時の外枠1マス分に関する分布関数の様子を示す．この図において，各矢印は$\bm{v}$に対応しており(各格子点上の中央の丸は$\bm{v} = \bm{0}$に対応する)，実線は並進を行える仮想粒子の速度成分を表し，破線は並進を行うことのできない速度成分を表している．
-\begin{figure}[tbp]
+\begin{figure}[btp]
   \centering
   \includegraphics[width=13cm]{./how_to_assemble/figs/edge_streaming.drawio.svg.eps}
   \caption{外枠1マス分の仮想粒子の分布関数}
@@ -144,7 +144,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
 \subsection{時系列性のあるモデル}
 実験で用いたモデルには入力データの時系列性を反映させるため，更にリカレントな重みを導入した．図\ref{fig:time-series-model}では本モデルの概要を示す．このモデルでは，$\Delta T$おきの時系列データが入力されたとき，それぞれの時刻に対して$\Delta T$後の時系列データを予測する．
 
-\begin{figure}[tbp]
+\begin{figure}[btp]
   \centering
   \includegraphics[width=13cm]{./how_to_assemble/figs/recurrent_model.svg.eps}
   \caption{時系列性のあるモデルの概要図}
@@ -162,6 +162,7 @@ LBMの並進は，仮想粒子の分布関数$f(\bm{x}, \bm{v}, t)$を用いて�
 ただし，
 \begin{equation}
   t_i = t_0 + i \Delta T \hspace{10pt} (0 \leq i \leq n)
+  \label{eq:time-series-t}
 \end{equation}
 のように表す．なお，$\hat{\bm{u}}(\bm{x}, t_i)$は実測の無次元流速，$\hat{\rho}(\bm{x}, t_i)$は実測の無次元圧力を表す($0 \leq i \leq n$)．更に，時刻$t_i$ $(0 \leq i \leq n-1)$のデータが入力されたときの内部における時刻$t_i + t$($0 \leq t \leq \Delta T$)の衝突(並進)後の仮想粒子の分布関数とそれから式(\ref{eq:lbm-macro-velocity}), (\ref{eq:lbm-macro-density})によって得られる巨視的な流速，圧力をそれぞれ
 \begin{equation}

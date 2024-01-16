@@ -9,7 +9,7 @@
 
 図\ref{fig:dnn-architecture}に示す通り，深層学習は入力層，隠れ層，出力層から成るニューラルネットワークで表される．入力層は入力データを受け取り，隠れ層は入力層から出力を受け取り，出力層は隠れ層の出力を受け取る．隠れ層は複数存在し，それぞれの隠れ層は前の隠れ層の出力を受け取る．ここで，各層は複数のニューロンからなり，各ニューロンは入力された実数値に活性化関数を適用した値を出力する．図\ref{fig:dnn-architecture}中の破線矢印が活性化関数に対応する．そしてその入力値は，前の層のニューロンの出力に重みをかけたものの和にバイアスを加えた値である．これは図\ref{fig:dnn-architecture}中の実線矢印に対応する．十分な隠れ層を持ち，重みが適切に調節されたニューラルネットワークは任意の関数を近似することができることが知られている\cite{Hornik1989MultilayerFN}．
 
-\begin{figure}[tbp]
+\begin{figure}[btp]
   \centering
   \includegraphics[width=0.7\linewidth]{./principles/figs/dnn_overview.svg.eps}
   \caption{深層学習のアーキテクチャ}
@@ -100,7 +100,7 @@ $2 \leq k \leq m$とする．式(\ref{eq:deep-learning-neuron-output}), (\ref{eq
 
 \subsection{自動微分 \label{subsection:automatic-differentiation}}
 \ref{subsection:neuron-principles}項では，ニューラルネットワークの重みを更新するために，誤差を逐次的に求めていく必要があることを述べた．しかし，ニューラルネットワークのモデルが複雑化するに従って，この数式を手作業で計算することは困難になってくる．そこで，自動微分と呼ばれる手法を用いる．
-一般的にコンピュータ上で表される関数は，基本的には四則演算や三角関数，指数関数などの初等関数の合成で表される．自動微分では，このような基本的な関数の微分をあらかじめ定義しておき，合成関数の微分を関数の微分の積で表すことで計算する．PyTorchやTensorFlowなどの深層学習フレームワークでは，この自動微分が実装されているため，複雑なモデルでも容易に実装することができる．
+一般的にコンピュータ上で表される関数は，基本的には四則演算や三角関数，指数関数などの初等関数の合成で表される\cite{10.5555/3122009.3242010}．自動微分では，このような基本的な関数の微分をあらかじめ定義しておき，合成関数の微分を関数の微分の積で表すことで計算する\cite{10.5555/3122009.3242010}．PyTorch\cite{NEURIPS2019-9015}やTensorFlow\cite{tensorflow2015-whitepaper}などの深層学習フレームワークでは，この自動微分が実装されているため，複雑なモデルでも容易に実装することができる．
 
 \section{格子ボルツマン法 \label{section:lbm}}
 
@@ -116,7 +116,7 @@ $2 \leq k \leq m$とする．式(\ref{eq:deep-learning-neuron-output}), (\ref{eq
   \mathrm{Sh} \frac{\partial f(\bm{x}, \bm{v}, t)}{\partial t} + \bm{v} \cdot \nabla f(\bm{x}, \bm{v}, t) = \frac{1}{\epsilon} \Omega_{\bm{v}}\left[ f(\bm{x}, \bm{v}', t) \right]
   \label{eq:lbm-discrete-boltzmann}
 \end{equation}
-\begin{figure}[tbp]
+\begin{figure}[btp]
   \centering
   \includegraphics[width=0.6\linewidth]{./principles/figs/lbm_d2q9.svg.eps}
   \caption{D2Q9モデルの速度ベクトル}

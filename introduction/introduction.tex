@@ -6,7 +6,7 @@
 \section{先行研究}
 \subsection{CNNとLSTMを用いた正方形領域での風速予測 \label{subsec:chen2021}}
 Chenら(2021)は，CNNとLSTMを用いたモデルによる正方形領域での風速予測を行った\cite{CHEN2021114451}．彼らのモデル概要図を図\ref{fig:chen2021_architecture}に示す．この図において，エンコーダとデコーダの部分にCNNが用いられており，これにより正方形領域における格子点上の風速の空間的なパターンを学習している．また，エンコーダの出力をLSTMに入力し，更にその出力をデコーダに入力している．このLSTMのユニットにより，時間的なパターンも学習している．
-\begin{figure}[tbp]
+\begin{figure}[btp]
     \centering
     \includegraphics[width=0.9\textwidth]{./introduction/figs/chen2021_model_overview.svg.eps}
     \caption{Chenら(2021)のモデル概要図\cite{CHEN2021114451}}
@@ -14,7 +14,7 @@ Chenら(2021)は，CNNとLSTMを用いたモデルによる正方形領域での
 \end{figure}
 
 このモデルを使って，彼らは図\ref{fig:chen2021_region}に示すようにアメリカのインディアナ州内部で，2km間隔の$10 \times 10$格子点上で2時間先の風速予測を行い，単にANNやLSTMのみを用いたモデルに比較して精度が向上することを示した．具体的には，全体の風速予測の平均絶対誤差(Mean Absolute Error, MAE)が$0.35 \mathrm{m/s}$減少し，これはpersistenceなモデル，ANNのみのモデル, LSTMのみのモデルの結果に比べてそれぞれ$32.7\%$, $28.8\%$, $18.9\%$低い値であると主張している．ここで，persistenceなモデルとは，風速の時間変化を考慮せず，直前の風速をそのまま予測値とするモデルである．
-\begin{figure}[tbp]
+\begin{figure}[btp]
     \centering
     \includegraphics[width=0.8\textwidth]{./introduction/figs/chen2021_region.png.eps}
     \caption{Chenら(2021)が風速予測を行った範囲\cite{CHEN2021114451}}
@@ -23,7 +23,7 @@ Chenら(2021)は，CNNとLSTMを用いたモデルによる正方形領域での
 
 \subsection{Physics-Informed Neural Networks}
 Raissi(2020)らは，物理学の知識をニューラルネットワークに組み込むことで，データが少ない場合でも高精度な予測を行うことができるPhysics-Informed Neural Networks(PINNs)というモデルを提案した\cite{PINNs2020}．このモデルは流体のシミュレーションに使われることが多く\cite{app13126892}，ここでもその用途を想定する．彼らの提案したモデル概要図を図\ref{fig:pinns-overview}に示す．
-\begin{figure}[tbp]
+\begin{figure}[btp]
     \centering
     \includegraphics[width=0.9\textwidth]{./introduction/figs/PINNs_overview.png.eps}
     \caption{Raissiら(2020)のモデル概要図\cite{PINNs2020}}
@@ -33,11 +33,15 @@ Raissi(2020)らは，物理学の知識をニューラルネットワークに�
 
 彼らのモデルは，損失関数(\ref{subsection:neuron-principles}項参照)に物理的な微分方程式からどれだけモデルの出力が乖離しているかを表す項を組み込むことで，物理法則を満たすように学習をする．図\ref{fig:pinns-overview}中では$e_1$,$e_2$,$e_3$,$e_4$,$e_5$がこの項に当たる．このとき，物理量の座標微分や時間微分は，\ref{subsection:automatic-differentiation}項に述べるように自動微分を使って導くことができる．実測データが少ない場合でも，それ以外の座標と時刻を入力した場合の損失が小さくなるようにすれば，モデルは物理法則に従うと彼らは主張している．
 
-この手法では，物理的な外力や拘束条件が既知の場合では有効であるが，例えば大気のように外力や拘束条件が不明または特定が困難な場合には損失関数をどう定めればよいのかわからず，適用するのが難しいという問題点がある．
+%この手法では，物理的な外力や拘束条件が既知の場合では有効であるが，例えば大気のように外力や拘束条件が不明または特定が困難な場合には損失関数をどう定めればよいのかわからず，適用するのが難しいという問題点がある． %これは良くない気がする．なぜなら，そもそもデータセットが少ない場合に適応するのが目的だから，データセットが多い場合はそもそもPINNsを使う必要がないから
+
+
 
 
 \section{研究目的}
 本研究では\ref{subsec:chen2021}項で述べたChenら(2021)の研究と同様に，長方形領域における格子点上での風速予測を行うが，ニューラルネットワークの構造にLBMを組み込むことで，LBMの持つ並列計算と相性の良さを活かしつつ，精度の向上を図る．
+
+本研究はデータセットが十分あるが，大気の動きのように外力や拘束条件が不明または特定が困難な場合にも，物理法則を利用できるモデルを提案することを目的としている（PINNsと比較して）．% todo: この辺推敲
 % todo: 結果とか考察を加味して後で加筆修正，その際に修論概要書と整合性をとる
 % todo: 先行研究との位置づけで，PINNsとは違うやり方で物理法則を組み込むよ，みたいなことも触れる
 
