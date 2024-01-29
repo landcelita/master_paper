@@ -1,13 +1,13 @@
 \chapter{提案モデルによる日本近辺の風速予測\label{chap:experiments}}
-本論文では，提案モデルの性能検証のために日本近辺の風速予測を実施した．また，性能の比較のためにCNNによるエンコーダ・デコーダとLSTMを用いたU-Net-likeなモデルを実装し，それぞれのモデルの性能を比較した．
+本論文では，提案モデルの性能検証のために日本近辺の風速予測を実施した．また，性能の比較のためにCNNによるエンコーダ・デコーダとLSTMを用いたエンコーダ・デコーダモデルを実装し，それぞれのモデルの性能を比較した．
 
 \section{実験の概要 \label{section:exp-overview}}
-本実験では，提案モデルと\ref{subsection:exp-u-net-like-model}項で説明するU-Net-likeなモデルの2つのモデルに3時刻分の時系列データを入力し，それぞれの3時間後の風速を予測するように訓練した．その学習と評価には，\ref{section:exp-data-and-condition}節で述べるように気象庁が提供している日本近辺の風速と気圧データを用いた．
+本実験では，提案モデルと\ref{subsection:exp-encoder-decoder-model}項で説明するエンコーダ・デコーダモデルの2つのモデルに3時刻分の時系列データを入力し，それぞれの3時間後の風速を予測するように訓練した．その学習と評価には，\ref{section:exp-data-and-condition}節で述べるように気象庁が提供している日本近辺の風速と気圧データを用いた．
 
 モデルが出力した最終時刻の予測値と実測値を用いて，以下の評価指標を算出した．ここで，指標に用いられる「風速」はベクトル量ではなく，スカラー量であることに注意されたい．
 % 学習するLBM
 % 学習しないLBM
-% U-Net-like
+% エンコーダ・デコーダ
 % で，
 % 全体のRMSE, ME
 % 座標ごとのRMSE, ME 風速, 風向 %todo 東西方向, 南北方向
@@ -60,7 +60,7 @@
   (\mathrm{RMSE改善率 [\%]}) = \frac{\mathrm{RMSE_{u-net}} - \mathrm{RMSE_{prop}}}{\mathrm{RMSE_{u-net}}} \times 100
   \label{eq:exp-rmse-improvement-rate}
 \end{equation}
-ただし，$\mathrm{RMSE_{u-net}}$はU-Net-likeなモデルのRMSE，$\mathrm{RMSE_{prop}}$は提案モデルのRMSEを表す．
+ただし，$\mathrm{RMSE_{u-net}}$はエンコーダ・デコーダモデルのRMSE，$\mathrm{RMSE_{prop}}$は提案モデルのRMSEを表す．
 
 % 風速の時間変化を考慮せず，直前の風速をそのまま予測値とするPersistenceモデル
 
@@ -116,21 +116,21 @@
 
 \section{物理的な構造を含まない深層学習モデルによる実験結果 \label{section:exp-results-without-physicial-structure}}
 
-\subsection{物理的な構造を含まない深層学習モデル \label{subsection:exp-u-net-like-model}}
-提案モデルと比較するために用いた物理的な構造をもたないU-Net-likeなモデルを図\ref{fig:exp-u-net-like-model}に示す．このモデルは\ref{subsec:chen2021}項で述べたChenらのモデルとU-Net\cite{journals/corr/RonnebergerFB15}を参考にしたものである．図中の各層の左に大きさを，上部にチャンネル数を記載してある．入出力部分では，風速の東西方向成分と南北方向成分，そして気圧を正規化して3チャンネルにまとめた．エンコーダ・デコーダの各層には畳み込み層とバッチ正規化\cite{10.5555/3045118.3045167}，活性化関数である$\tanh$を用いた．また，エンコーダの各層の出力をコピーしてデコーダの対応する層の入力に結合するスキップコネクションを用いた．エンコーダから出力される信号を平滑化してからLSTMユニットに入力し，その出力をデコーダに入力した．デコードの際にはサイズを復元するために逆畳み込み層を用いた．出力の際に，提案モデルと性能比較をできるように周囲5マス分を切り捨てた．
+\subsection{物理的な構造を含まない深層学習モデル \label{subsection:exp-encoder-decoder-model}}
+提案モデルと比較するために用いた物理的な構造をもたないエンコーダ・デコーダモデルを図\ref{fig:exp-encoder-decoder-model}に示す．このモデルは\ref{subsec:chen2021}項で述べたChenらのモデルとU-Net\cite{journals/corr/RonnebergerFB15}を参考にしたものである．図中の各層の左に大きさを，上部にチャンネル数を記載してある．入出力部分では，風速の東西方向成分と南北方向成分，そして気圧を正規化して3チャンネルにまとめた．エンコーダ・デコーダの各層には畳み込み層とバッチ正規化\cite{10.5555/3045118.3045167}，活性化関数である$\tanh$を用いた．また，エンコーダの各層の出力をコピーしてデコーダの対応する層の入力に結合するスキップコネクションを用いた．エンコーダから出力される信号を平滑化してからLSTMユニットに入力し，その出力をデコーダに入力した．デコードの際にはサイズを復元するために逆畳み込み層を用いた．出力の際に，提案モデルと性能比較をできるように周囲5マス分を切り捨てた．
 
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.9\linewidth]{./experiments/figs/u_net_like_model_architecture.svg.eps}
   \caption{物理的な構造を含まない深層学習モデルのアーキテクチャ}
-  \label{fig:exp-u-net-like-model}
+  \label{fig:exp-encoder-decoder-model}
 \end{figure}
 
 その他の利用したデータ及び学習条件は\ref{section:exp-data-and-condition}節と同様である．
 
 \subsection{実験結果 \label{subsection:exp-results-without-physicial-structure}}
-\ref{section:exp-overview}節で述べた評価指標を用いて，U-Net-likeなモデルの性能を評価し，提案モデルと比較した．
-U-Net-likeなモデルについて，全体の風速の$\mathrm{RMSE[m/s]}$と$\mathrm{ME[m/s]}$，そして風向の$\mathrm{RMSE[^\circ]}$をそれぞれ提案モデルの結果と比較しながら，それぞれ表\ref{table:exp-total-rmse}に示す．また，座標ごとの風速の$\mathrm{RMSE[m/s]}$と$\mathrm{ME[m/s]}$，そして風向の$\mathrm{RMSE[^\circ]}$をそれぞれ提案モデルの結果と比較しながら，それぞれ図\ref{fig:exp-speed-rmse-per-point}, \ref{fig:exp-speed-ma-per-point}, \ref{fig:exp-direction-rmse-per-point}に示す．
+\ref{section:exp-overview}節で述べた評価指標を用いて，エンコーダ・デコーダモデルの性能を評価し，提案モデルと比較した．
+エンコーダ・デコーダモデルについて，全体の風速の$\mathrm{RMSE[m/s]}$と$\mathrm{ME[m/s]}$，そして風向の$\mathrm{RMSE[^\circ]}$をそれぞれ提案モデルの結果と比較しながら，それぞれ表\ref{table:exp-total-rmse}に示す．また，座標ごとの風速の$\mathrm{RMSE[m/s]}$と$\mathrm{ME[m/s]}$，そして風向の$\mathrm{RMSE[^\circ]}$をそれぞれ提案モデルの結果と比較しながら，それぞれ図\ref{fig:exp-speed-rmse-per-point}, \ref{fig:exp-speed-ma-per-point}, \ref{fig:exp-direction-rmse-per-point}に示す．
 
 \begin{table}[bp]
   \caption{全体の風速の$\mathrm{RMSE[m/s]}$}
@@ -138,7 +138,7 @@ U-Net-likeなモデルについて，全体の風速の$\mathrm{RMSE[m/s]}$と$\
   \centering
   \begin{tabular}{ccc}
     \hline
-    提案モデル & U-Net-likeなモデル & RMSE改善率 \\
+    提案モデル & エンコーダ・デコーダモデル & RMSE改善率 \\
     \hline
     1.0432 & 1.0930 & 4.57 \\
     \hline
@@ -151,7 +151,7 @@ U-Net-likeなモデルについて，全体の風速の$\mathrm{RMSE[m/s]}$と$\
   \centering
   \begin{tabular}{cc}
     \hline
-    提案モデル & U-Net-likeなモデル \\
+    提案モデル & エンコーダ・デコーダモデル \\
     \hline
     -0.1909 & 0.2001 \\
     \hline
@@ -164,7 +164,7 @@ U-Net-likeなモデルについて，全体の風速の$\mathrm{RMSE[m/s]}$と$\
   \centering
   \begin{tabular}{ccc}
     \hline
-    提案モデル & U-Net-likeなモデル & RMSE改善率 \\
+    提案モデル & エンコーダ・デコーダモデル & RMSE改善率 \\
     \hline
     21.444 & 22.521 & 4.78 \\
     \hline
@@ -174,38 +174,38 @@ U-Net-likeなモデルについて，全体の風速の$\mathrm{RMSE[m/s]}$と$\
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.9\linewidth]{./experiments/figs/result_speed_rmse_per_point.svg.eps}
-  \caption{座標ごとの風速のRMSE[m/s] (a)提案モデルの$\mathrm{RMSE[m/s]}$ (b)U-Net-likeモデルの$\mathrm{RMSE[m/s]}$ (c)提案モデルによる$\mathrm{RMSE改善率[\%]}$}
+  \caption{座標ごとの風速のRMSE[m/s] (a)提案モデルの$\mathrm{RMSE[m/s]}$ (b)エンコーダ・デコーダモデルの$\mathrm{RMSE[m/s]}$ (c)提案モデルによる$\mathrm{RMSE改善率[\%]}$}
   \label{fig:exp-speed-rmse-per-point}
 \end{figure}
 
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.6\linewidth]{./experiments/figs/result_speed_me_per_point.svg.eps}
-  \caption{座標ごとの風速の$\mathrm{ME[m/s]}$ (a)提案モデルの$\mathrm{ME[m/s]}$ (b)U-Net-likeモデルの$\mathrm{ME[m/s]}$}
+  \caption{座標ごとの風速の$\mathrm{ME[m/s]}$ (a)提案モデルの$\mathrm{ME[m/s]}$ (b)エンコーダ・デコーダモデルの$\mathrm{ME[m/s]}$}
   \label{fig:exp-speed-ma-per-point}
 \end{figure}
 
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.9\linewidth]{./experiments/figs/result_direction_rmse_per_point.svg.eps}
-  \caption{座標ごとの風向の$\mathrm{RMSE[^\circ]}$ (a)提案モデルの$\mathrm{RMSE[^\circ]}$ (b)U-Net-likeモデルの$\mathrm{RMSE[^\circ]}$ (c)提案モデルによるRMSE改善率$\mathrm{[\%]}$}
+  \caption{座標ごとの風向の$\mathrm{RMSE[^\circ]}$ (a)提案モデルの$\mathrm{RMSE[^\circ]}$ (b)エンコーダ・デコーダモデルの$\mathrm{RMSE[^\circ]}$ (c)提案モデルによるRMSE改善率$\mathrm{[\%]}$}
   \label{fig:exp-direction-rmse-per-point}
 \end{figure}
 
 \section{考察 \label{section:exp-discussion}}
-表\ref{table:exp-total-direction-rmse}と表\ref{table:exp-total-rmse}より，$\mathrm{RMSE改善率[\%]}$が0より真に大きいことから，提案モデルの方がU-Net-likeなモデルよりも風速と風向の予測精度が高いことがわかった．これにより，提案モデルの大局的な優位性を示すことができた．以下，提案モデルとU-Net-likeなモデルの予測精度の共通点と相違点から，日本近辺の大気の性質及び二つのモデルの性質について考察する．
+表\ref{table:exp-total-direction-rmse}と表\ref{table:exp-total-rmse}より，$\mathrm{RMSE改善率[\%]}$が0より真に大きいことから，提案モデルの方がエンコーダ・デコーダモデルよりも風速と風向の予測精度が高いことがわかった．これにより，提案モデルの大局的な優位性を示すことができた．以下，提案モデルとエンコーダ・デコーダモデルの予測精度の共通点と相違点から，日本近辺の大気の性質及び二つのモデルの性質について考察する．
 
 図\ref{fig:exp-speed-rmse-per-point}(a),(b)をみると，2つのモデルは共に陸上よりも海上の風速誤差の方が大きいことがわかった．これに対して，図\ref{fig:exp-direction-rmse-per-point}(a),(b)をみると，2つのモデルは共に海上よりも陸上の風向誤差の方が大きいことがわかった．これは，海上は遮蔽物が存在しないため風速が陸上よりも大きい傾向にありその分変化量も大きいこと，そして陸上の風向は複雑な地形によって海上よりも変化量が大きくなることが原因として考えられる．
 
-表\ref{table:exp-total-me}及び図\ref{fig:exp-speed-ma-per-point}(a)から，提案モデルは風速を小さく見積もる傾向があることがわかった．これは，提案モデルが衝突のプロセスによって平衡に向かう性質があるためだと言える．これに対して，表\ref{table:exp-total-me}及び図\ref{fig:exp-speed-ma-per-point}(b)より，U-Net-likeなモデルは風速を大きく見積もる傾向があることがわかった．これは活性化関数の$\tanh$が原点近傍で大きな傾きをもち，そこから離れると傾きが小さくなるため，バッチ正規化によって入力が原点近傍に集まることで風速を大きく見積もる傾向があると考えられる．
+表\ref{table:exp-total-me}及び図\ref{fig:exp-speed-ma-per-point}(a)から，提案モデルは風速を小さく見積もる傾向があることがわかった．これは，提案モデルが衝突のプロセスによって平衡に向かう性質があるためだと言える．これに対して，表\ref{table:exp-total-me}及び図\ref{fig:exp-speed-ma-per-point}(b)より，エンコーダ・デコーダモデルは風速を大きく見積もる傾向があることがわかった．これは活性化関数の$\tanh$が原点近傍で大きな傾きをもち，そこから離れると傾きが小さくなるため，バッチ正規化によって入力が原点近傍に集まることで風速を大きく見積もる傾向があると考えられる．
 
-最後に，図\ref{fig:exp-speed-rmse-per-point}(c)と図\ref{fig:exp-direction-rmse-per-point}(c)をみると，提案モデルはU-Net-likeなモデルに比べて陸上では精度が改善し陸と海の境界付近で精度が悪化することがわかった．これは，提案モデルが座標に依存性のある陸上の風速変化を捉えることができているのに対し，U-Net-likeなモデルは境界の特徴を捉えることができていることを示唆する．
+最後に，図\ref{fig:exp-speed-rmse-per-point}(c)と図\ref{fig:exp-direction-rmse-per-point}(c)をみると，提案モデルはエンコーダ・デコーダモデルに比べて陸上では精度が改善し陸と海の境界付近で精度が悪化することがわかった．これは，提案モデルが座標に依存性のある陸上の風速変化を捉えることができているのに対し，エンコーダ・デコーダモデルは境界の特徴を捉えることができていることを示唆する．
 
 % 提案モデルの優位性を示すことができた ok
 % 風速の誤差は海上のほうがおおきい ok
 % 風向の誤差は陸上のほうがおおきい ok
 % 提案モデルは風速を小さく見積もりがち ok
-% u-net-likeモデルは風速を大きく見積もりがち ok
+% エンコーダ・デコーダモデルは風速を大きく見積もりがち ok
 % 提案モデルは陸上ではよくて大陸と海の境界付近で誤差が大きい ok
 % 平均化についてもふれて，どうやってアップスケーリングするか 
 % 短所として外枠の風速が予測できないことにふれる
