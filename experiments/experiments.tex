@@ -30,8 +30,6 @@
   \label{fig:exp-averaging}
 \end{figure}
 
-%todo 標準化についても時間があればここで触れる
-
 \subsection{学習条件 \label{subsection:exp-condition}}
 
 続いて，モデルの詳細な学習条件について述べる．提案モデルのアーキテクチャについての概要を\ref{subsection:time-series-model}項で述べたがここではより具体的に数値を提示し，モデルの仕様を詳細化する．図\ref{fig:exp-model-architecture}に示したように，このモデルでは並進と衝突をそれぞれ5回行った(緑の実線矢印が並進を表し，緑の破線矢印が衝突を表している)．すなわち式(\ref{eq:time-series-t})において$\Delta T = 5$である．\ref{subsection:time-series-less-model}項で述べた通り衝突の回数分だけ外枠が削られるため，図中の赤破線によって強調されているように出力層の大きさは入力層に比べて東西南北の端$5$マス分減少している．
@@ -45,7 +43,6 @@
 \end{figure}
 
 % 損失関数について，式(\ref{eq:time-series-loss})に示したがここでは風速の精度を重視するため，式(\ref{eq:time-series-loss})の第1項の重みを$1$，第2項の重みを$0.1$とした．
-%todo: なんで気圧の予測はしないのか聞かれたらこの辺も追記する
 
 提案モデルの学習にはAdam\cite{Kingma2014AdamAM}を用いた．学習率は$10^{-3}$とし，ミニバッチサイズは$16$とした．全体のデータセットを2920日分と730日分に分けそれぞれを学習用データと検証用データとした．学習は$500$エポック行い，かかった時間は約8時間であった．実行環境にはGoogle Colaboratory\cite{GoogleColaboratory}を用い，GPUはTesla T4を用いた．また提案モデルの構築にはPyTorch\cite{NEURIPS2019-9015}を用い，自動微分による学習を行った．
 % 損失の重み付けについて書く(速度に重みを強くつけた)
