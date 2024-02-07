@@ -208,6 +208,21 @@
 \subsection{日本陸上で最も風速変化が大きい点における誤差 \label{subsec:exp-results-at-max-diff-point}}
 提案モデルとエンコーダ・デコーダモデルについて日本陸上で最も風速変化が大きい点における風速の$\mathrm{RMSE[m/s]}$と実測風速の変化量$\mathrm{[m/s]}$を表\ref{table:exp-max-diff-point-speed}に示す．また，風向については表\ref{table:exp-max-diff-point-direction}に示す．
 
+\section{考察 \label{section:exp-discussion}}
+表\ref{table:exp-total-rmse}と表\ref{table:exp-total-direction-rmse}より，$\mathrm{RMSE改善率[\%]}$が0より真に大きいことから，提案モデルの方がエンコーダ・デコーダモデルよりも風速と風向の予測精度が高いことがわかった．これにより，提案モデルの大局的な優位性を示すことができた．以下，提案モデルとエンコーダ・デコーダモデルの予測精度の共通点と相違点から，日本近辺の大気の性質及び二つのモデルの性質について考察する．
+
+図\ref{fig:exp-speed-rmse-per-point}(a),(b)をみると，2つのモデルは共に陸上よりも海上の風速誤差の方が大きいことがわかった．これに対して，図\ref{fig:exp-direction-rmse-per-point}(a),(b)をみると，2つのモデルは共に海上よりも陸上の風向誤差の方が大きいことがわかった．これは，海上は遮蔽物が存在しないため風速が陸上よりも大きい傾向にありその分変化量も大きいこと，そして陸上の風向は複雑な地形によって海上よりも変化量が大きくなることが原因として考えられる．
+
+表\ref{table:exp-total-me}及び図\ref{fig:exp-speed-ma-per-point}(a)から，提案モデルは日本の沿岸部において風速を小さく見積もる傾向があることがわかった．これは，図\ref{fig:exp-speed-ma-per-point}(c)から，重み学習をしない格子ボルツマン法を用いた場合も同様であることから，提案モデルが時間発展とともに風速を強めるような機構が不足していることが原因として考えられる．これに対して，図\ref{fig:exp-speed-ma-per-point}(a)と図\ref{fig:exp-speed-ma-per-point}(c)を見比べると日本の陸上部においては重み学習をしない格子ボルツマン法を用いた場合と比べて風速を正しく，小さく見積もることができていることから，提案モデルが時間発展とともに風速を弱める機構を持っていることがわかる．
+
+図\ref{fig:exp-speed-rmse-per-point}(c)と図\ref{fig:exp-direction-rmse-per-point}(c)をみると，提案モデルはエンコーダ・デコーダモデルに比べて陸上では精度が改善し陸と海の境界付近で精度が悪化することがわかった．これは上記に述べた通り提案モデルが陸上で風速を小さく見積もる傾向があることが原因として考えられる．
+
+図\ref{fig:exp-speed-err-per-point-typhoon}, \ref{fig:exp-direction-err-per-point-typhoon}をみると，台風の日(2020/09/06 6:00)において，提案モデルはエンコーダ・デコーダモデルに比べて特に台風の中心部において風速の誤差が小さくなっていることがわかった．これは，データセットに台風という特異な気象条件が多く含まれておらずエンコーダ・デコーダモデルが学習しきれなかったのに対して提案モデルは物理的な構造がその情報を補ったからだと推察される．
+
+最後に，表\ref{table:exp-max-diff-point-speed}及び表\ref{table:exp-max-diff-point-direction}をみると，提案モデルはエンコーダ・デコーダモデルに比べて日本陸上で最も風速変化が大きい点において風速と風向の誤差が小さくなっていることがわかった．実際の短期風速予報の運用においても，風速変化が大きい地点で風速と風向の予測精度が高いことは重要であるため，提案モデルの有用性が示されたと言える．
+
+% 座標ごとのRMSE改善率の図から，特に日本沿岸部で結果が悪くなっている．座標ごとのMEと結びつけて，LBMで風速を大きくする機構が不足している事に触れる．
+
 \begin{table}[bp]
   \caption{全体の風速のRMSE}
   \label{table:exp-total-rmse}
@@ -250,35 +265,35 @@
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.9\linewidth]{./experiments/figs/result_speed_rmse_per_point.svg.eps}
-  \caption{座標ごとの風速のRMSE[m/s] (a)提案モデルの$\mathrm{RMSE[m/s]}$ (b)エンコーダ・デコーダモデルの$\mathrm{RMSE[m/s]}$ (c)提案モデルによる$\mathrm{RMSE改善率[\%]}$}
+  \caption{座標ごとの風速のRMSE (a)提案モデルの$\mathrm{RMSE[m/s]}$ (b)エンコーダ・デコーダモデルの$\mathrm{RMSE[m/s]}$ (c)提案モデルによる$\mathrm{RMSE改善率[\%]}$}
   \label{fig:exp-speed-rmse-per-point}
 \end{figure}
 
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.9\linewidth]{./experiments/figs/result_speed_me_per_point.svg.eps}
-  \caption{座標ごとの風速の$\mathrm{ME[m/s]}$ (a)提案モデルの$\mathrm{ME[m/s]}$ (b)エンコーダ・デコーダモデルの$\mathrm{ME[m/s]}$ (c)重み学習をしない格子ボルツマン法を用いた場合の$\mathrm{ME[m/s]}$}
+  \caption{座標ごとの風速のME (a)提案モデルの$\mathrm{ME[m/s]}$ (b)エンコーダ・デコーダモデルの$\mathrm{ME[m/s]}$ (c)重み学習をしない格子ボルツマン法を用いた場合の$\mathrm{ME[m/s]}$}
   \label{fig:exp-speed-ma-per-point}
 \end{figure}
 
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.9\linewidth]{./experiments/figs/result_direction_rmse_per_point.svg.eps}
-  \caption{座標ごとの風向の$\mathrm{RMSE[^\circ]}$ (a)提案モデルの$\mathrm{RMSE[^\circ]}$ (b)エンコーダ・デコーダモデルの$\mathrm{RMSE[^\circ]}$ (c)提案モデルによるRMSE改善率$\mathrm{[\%]}$}
+  \caption{座標ごとの風向のRMSE (a)提案モデルの$\mathrm{RMSE[^\circ]}$ (b)エンコーダ・デコーダモデルの$\mathrm{RMSE[^\circ]}$ (c)提案モデルによるRMSE改善率$\mathrm{[\%]}$}
   \label{fig:exp-direction-rmse-per-point}
 \end{figure}
 
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.7\linewidth]{./experiments/figs/result_speed_err_per_point_typhoon.png.eps}
-  \caption{台風の日(2020/09/06 6:00)における座標ごとの風速の誤差[m/s] (緑の実線で囲まれた位置に台風が存在する) (a)提案モデルの誤差$\mathrm{[m/s]}$ (b)エンコーダ・デコーダモデルの誤差$\mathrm{[m/s]}$}
+  \caption{台風の日(2020/09/06 6:00)における座標ごとの風速の誤差 (緑の実線で囲まれた位置に台風が存在する) (a)提案モデルの誤差$\mathrm{[m/s]}$ (b)エンコーダ・デコーダモデルの誤差$\mathrm{[m/s]}$}
   \label{fig:exp-speed-err-per-point-typhoon}
 \end{figure}
 
 \begin{figure}[bp]
   \centering
   \includegraphics[width=0.7\linewidth]{./experiments/figs/result_dire_err_per_point_typhoon.png.eps}
-  \caption{台風の日(2020/09/06 6:00)における座標ごとの風向の誤差$\mathrm{[^\circ]}$ (緑の実線で囲まれた位置に台風が存在する) (a)提案モデルの誤差$\mathrm{[^\circ]}$ (b)エンコーダ・デコーダモデルの誤差$\mathrm{[^\circ]}$}
+  \caption{台風の日(2020/09/06 6:00)における座標ごとの風向の誤差 (緑の実線で囲まれた位置に台風が存在する) (a)提案モデルの誤差$\mathrm{[^\circ]}$ (b)エンコーダ・デコーダモデルの誤差$\mathrm{[^\circ]}$}
   \label{fig:exp-direction-err-per-point-typhoon}
 \end{figure}
 
@@ -307,17 +322,6 @@
     \hline
   \end{tabular}
 \end{table}
-
-\section{考察 \label{section:exp-discussion}}
-表\ref{table:exp-total-rmse}と表\ref{table:exp-total-direction-rmse}より，$\mathrm{RMSE改善率[\%]}$が0より真に大きいことから，提案モデルの方がエンコーダ・デコーダモデルよりも風速と風向の予測精度が高いことがわかった．これにより，提案モデルの大局的な優位性を示すことができた．以下，提案モデルとエンコーダ・デコーダモデルの予測精度の共通点と相違点から，日本近辺の大気の性質及び二つのモデルの性質について考察する．
-
-図\ref{fig:exp-speed-rmse-per-point}(a),(b)をみると，2つのモデルは共に陸上よりも海上の風速誤差の方が大きいことがわかった．これに対して，図\ref{fig:exp-direction-rmse-per-point}(a),(b)をみると，2つのモデルは共に海上よりも陸上の風向誤差の方が大きいことがわかった．これは，海上は遮蔽物が存在しないため風速が陸上よりも大きい傾向にありその分変化量も大きいこと，そして陸上の風向は複雑な地形によって海上よりも変化量が大きくなることが原因として考えられる．
-
-表\ref{table:exp-total-me}及び図\ref{fig:exp-speed-ma-per-point}(a)から，提案モデルは風速を小さく見積もる傾向があることがわかった．これは，提案モデルが衝突のプロセスによって平衡に向かう性質があるためだと言える．これに対して，表\ref{table:exp-total-me}及び図\ref{fig:exp-speed-ma-per-point}(b)より，エンコーダ・デコーダモデルは風速を大きく見積もる傾向があることがわかった．これは活性化関数の$\tanh$が原点近傍で大きな傾きをもち，そこから離れると傾きが小さくなるため，バッチ正規化によって入力が原点近傍に集まることで風速を大きく見積もる傾向があると考えられる．
-
-最後に，図\ref{fig:exp-speed-rmse-per-point}(c)と図\ref{fig:exp-direction-rmse-per-point}(c)をみると，提案モデルはエンコーダ・デコーダモデルに比べて陸上では精度が改善し陸と海の境界付近で精度が悪化することがわかった．これは，提案モデルが座標に依存性のある陸上の風速変化を捉えることができているのに対し，エンコーダ・デコーダモデルは境界の特徴を捉えることができていることを示唆する．
-
-% 座標ごとのRMSE改善率の図から，特に日本沿岸部で結果が悪くなっている．座標ごとのMEと結びつけて，LBMで風速を大きくする機構が不足している事に触れる．
 
 % 最後にで触れる
 % 平均化についてもふれて，どうやってアップスケーリングするか 
